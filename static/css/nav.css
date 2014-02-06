@@ -1,0 +1,39 @@
+@import url('http://getbootstrap.com/dist/css/bootstrap.css');
+
+body {
+    background-color: #5abedb;
+    color: #fff;
+}
+
+.goback {
+  font-size: 2em;
+  position: fixed;
+  left: 0.5em;
+  top: 0.5em;
+  color: #fff;
+}
+
+.mynav {
+  margin-top: 3em;
+  font-size: 1.2em;
+}
+
+.mynav ul {
+  display: inline-block;
+}
+
+.mynav li {
+  margin-top: 2em;
+  display: block;
+  width: 208px;
+  min-height: 50px;
+}
+
+.nav > li > a {
+  background-color: #fff;
+  color: #000;
+}
+
+.nav-stacked > li + li {
+  margin-top: 1em;
+}
