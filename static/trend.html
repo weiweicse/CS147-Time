@@ -9,6 +9,13 @@
   <link rel="apple-touch-startup-image" href="img/splash.png" sizes="640x1096" />
   <link rel="apple-touch-startup-image" href="img/splash-s.png" sizes="640x920" />
   <link href="css/nav.css" rel="stylesheet" type="text/css" />
+  <style>
+  .canvasWrapper {
+    height: 60%;
+    margin-top: 2em;
+  }
+  </style>
+
 </head>
 
 <body>
@@ -16,13 +23,52 @@
 <a class="goback" href="/"><span class="glyphicon glyphicon-chevron-left"></span></a>
 
 <div class="container">
-  Welcome! Trend view goes here.
+  <p style="margin-top: 2em; font-size: 2em; text-align: center;">Trend Graph</p>
+  <div class="canvasWrapper">
+    <canvas id="barContainer" width="600" height="400"></canvas>
+  </div>
 </div>
 
 <div id="help"><span class="glyphicon glyphicon-question-sign"></span></div>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="js/Chart.min.js"></script>
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  var c = $("#barContainer");
+  var ct = c.get(0).getContext('2d');
+  var container = $(c).parent();
+  $(window).resize(resizeCanvas);
+  function resizeCanvas() {
+    c.attr('width', $(container).width());
+    c.attr('height', $(container).height());
+    createChart();
+  }
+  resizeCanvas();
+});
+
+function createChart() {
+  var data = {
+    labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+    datasets: [{
+      fillColor: "rgba(255,255,255,1)",
+      strokeColor: "rgba(225,255,255,1)",
+      data: [3, 2, 2, 5, 3, 3, 4]
+    }]
+  };
+  var cht = document.getElementById('barContainer');
+  var ctx = cht.getContext('2d');
+  var barChart = new Chart(ctx).Bar(data, {
+    scaleOverride: true,
+    scaleSteps: 1,
+    scaleStepWidth: Math.ceil(5 / 1),
+    scaleStartValue: 0
+  });
+}
+</script>
+
 
 </body>
 
