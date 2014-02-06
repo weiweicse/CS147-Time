@@ -22,6 +22,28 @@ body {
     bottom: 1em;
 }
 
+#help a {
+    color: inherit;
+}
+
+#help-panel {
+    display: none;
+    position: fixed;
+}
+
+#help-panel .panel-title {
+    position: relative;
+}
+
+#help-panel .panel-title span {
+    position: absolute;
+    right: 0;
+}
+
+#help-panel p {
+    color: #333;
+}
+
 #success-msg {
     display: none;
     position: absolute;
