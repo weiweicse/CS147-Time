@@ -1,0 +1,21 @@
+@import url('http://getbootstrap.com/dist/css/bootstrap.css');
+
+body {
+    background-color: #5abedb;
+    color: #fff;
+}
+
+.clock {
+    margin-top: .1em;
+    font-size: 5em;
+}
+
+.greeting {
+    font-size: 2em;
+}
+
+#help {
+    position: fixed;
+    right: 1em;
+    bottom: 1em;
+}
