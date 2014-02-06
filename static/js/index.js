@@ -1,4 +1,16 @@
 $(function() {
+    // Success message
+    if (location.search === '?success') {
+        // TODO: more robust query test
+        var $msg = $('#success-msg');
+        var height = $msg.outerHeight();
+        $msg.css('top', -height).show().animate({top: 0});
+        setTimeout(function() {
+            $msg.animate({top: -height});
+        }, 2000);
+    }
+
+    // Time update
     var $clock = $('.clock');
     var $greeting = $('.greeting');
     

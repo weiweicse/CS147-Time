@@ -3,6 +3,8 @@
 body {
     background-color: #5abedb;
     color: #fff;
+    /* For positioning #success-msg */
+    position: relative;
 }
 
 .clock {
@@ -18,4 +20,17 @@ body {
     position: fixed;
     right: 1em;
     bottom: 1em;
+}
+
+#success-msg {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Reduce .alert's padding. */
+    padding: 5px;
+    border-radius: 0;
+
+    text-align: center;
 }
