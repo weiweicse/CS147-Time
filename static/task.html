@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Add Task - VisualTime</title>
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+        <link rel="apple-touch-icon-precomposed" href="img/icon.png"/>
+        <link rel="apple-touch-startup-image" href="img/splash.png" sizes="640x1096" />
+        <link rel="apple-touch-startup-image" href="img/splash-s.png" sizes="640x920" />
+        <link href="css/task.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <div class="container">
+            <h1>Add a Task</h1>
+
+            <form role="form" action=".">
+                <div class="form-group">
+                    <label for="task-name-input">Task Name</label>
+                    <input type="text" class="form-control" id="task-name-input" placeholder="Enter task name">
+                </div>
+                <div class="form-group">
+                    <label for="start-time-input">Start Time</label>
+                    <input type="datetime-local" class="form-control" id="start-time-input" placeholder="Click to enter">
+                </div>
+                <div class="form-group">
+                    <label for="end-time-input">End Time</label>
+                    <input type="datetime-local" class="form-control" id="end-time-input" placeholder="Click to enter">
+                </div>
+                <div id="error-alert" class="alert alert-danger" style="display:none;"></div>
+                <div class="row button-holder">
+                    <a href="/" class="record-button col-xs-4"><button type="button" class="btn btn-success btn-lg">Record</button></a>
+                    <a href="/" class="col-xs-4"><button type="button" class="btn btn-danger btn-lg">Cancel</button></a>
+                </div>
+            </form>
+        </div>
+
+        <div id="help"><span class="glyphicon glyphicon-question-sign"></span></div>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+        <script src="js/task.js"></script>
+    </body>
+</html>
