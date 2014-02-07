@@ -29,10 +29,10 @@ $(function() {
     
     var updateProgress = function() {
         var now = new Date();
-        showProgress($("#today"), now.getHours() + 1, 24);
-        showProgress($("#week"), now.getDay() + 1, 7);
-        showProgress($("#month"), now.getDate(), new Date(now.getYear(), now.getMonth() + 1, 0).getDate());
-        showProgress($("#year"), now.getMonth() + 1, 12);
+        showProgress($("#today"), now.getHours(), 24);
+        showProgress($("#week"), now.getDay(), 7);
+        showProgress($("#month"), now.getDate() - 1, new Date(now.getYear(), now.getMonth() + 1, 0).getDate());
+        showProgress($("#year"), now.getMonth(), 12);
     };
     
     updateScreen();
