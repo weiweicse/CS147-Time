@@ -1,0 +1,23 @@
+@import url('//getbootstrap.com/dist/css/bootstrap.css');
+
+body {
+    background-color: #5abedb;
+}
+
+.goback {
+  font-size: 2em;
+  position: fixed;
+  left: 0.5em;
+  top: 0.5em;
+  color: #fff;
+}
+
+#help {
+    position: fixed;
+    right: 1em;
+    bottom: 1em;
+}
+
+.panel-heading .badge {
+  float: right;
+}
