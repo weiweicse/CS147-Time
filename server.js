@@ -1,9 +1,7 @@
 /**
- * Introduction to Human-Computer Interaction
- * Lab 2
+ * CS147-Time
  * --------------
- * Created by: Michael Bernstein
- * Last updated: December 2013
+ * By: Wei Wei, Kavin Yao, Grant Delgado
  */
 var PORT = 3000;
 
@@ -11,18 +9,33 @@ var PORT = 3000;
 // that makes nontrivial applications easier to build
 var express = require('express');
 
+// Import components
+var core = require('./routes/core');
+
 // Create the server instance
 var app = express();
 
 // Print logs to the console and compress pages we send
 app.use(express.logger());
 app.use(express.compress());
+app.set('view engine', 'jade');
 
 // Return all pages in the /static directory
 // whenever they are requested at '/'
 // e.g., http://localhost:3000/index.html
 // maps to /static/index.html on this machine
 app.use(express.static(__dirname + '/static'));
+
+// Add routes
+app.get('/api/user', core.get_user_info);
+app.get('/api/stats', core.get_stats);
+app.get('/api/usage/by/:duration', core.get_usage);
+app.get('/api/trend', core.get_trend);
+app.get('/api/calendar/:year/:month', core.get_calendar);
+app.get('/api/history', core.get_history);
+app.get('/api/history/prev', core.get_history_prev);
+app.get('/api/history/next', core.get_history_next);
+app.post('/api/record/add', core.add_record);
 
 // Start the server
 var port = process.env.PORT || PORT; // 80 for web, 3000 for development
