@@ -9,28 +9,29 @@
   <link rel="apple-touch-startup-image" href="img/splash.png" sizes="640x1096" />
   <link rel="apple-touch-startup-image" href="img/splash-s.png" sizes="640x920" />
   <link href="css/nav.css" rel="stylesheet" type="text/css" />
+  <style>
+  </style>
 </head>
 
 <body>
 
 <a class="goback" href="/nav.html"><span class="glyphicon glyphicon-chevron-left"></span></a>
 
-<div>
-	<button id="back" name="back"><</button>
-	<button id="forward" name="forward">></button>
-  <label id="currentMonth">February 2014</label>
-</div>
-
 <div class="container">
 
-<div id="chart"></div>
+  <div style="text-align: center; margin-top: 2em;">
+    <button id="back" name="back"><</button>
+    <label id="currentMonth">February 2014</label>
+    <button id="forward" name="forward">></button>
+  </div>
+  <div id="chart" style="margin-top:2em;"></div>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/d3/3.4.1/d3.min.js"></script>
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
   <script type="text/javascript">
     var d3Calendar = function() {
-      var calendarWidth = 1380,
-      calendarHeight = 820,
+      var calendarWidth = 550,
+      calendarHeight = 650,
       gridXTranslation = 10,
       gridYTranslation = 40,
       cellColorForCurrentMonth = '#EAEAEA',
@@ -164,18 +165,33 @@
                               .attr("height", d3Calendar.calendarHeight)
                               .append("g");
       var cellPositions = d3Calendar.gridCellPositions;
+      var daysOfTheWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+      var daysInMonthToDisplay = d3Calendar.daysInMonth();
       d3Calendar.calendar.selectAll("rect")
                          .data(cellPositions)
                          .enter()
                          .append("rect")
+                         .attr("class", "rect")
+                         .attr("date", function (d, i) { return daysInMonthToDisplay[i][0]; })
                          .attr("x", function (d) { return d[0]; })
                          .attr("y", function (d) { return d[1]; })
                          .attr("width", d3Calendar.cellWidth)
                          .attr("height", d3Calendar.cellHeight)
                          .style("stroke", "#555")
                          .style("fill", "white")
-                         .attr("transform", "translate(" + d3Calendar.gridXTranslation + "," + d3Calendar.gridYTranslation + ")");
-      var daysOfTheWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+                         .attr("transform", "translate(" + d3Calendar.gridXTranslation + "," + d3Calendar.gridYTranslation + ")")
+                         /*.on("mouseover", function() { if (d3.select(this).attr("style").indexOf("#eaeaea") == -1) {
+                           d3.select(this).style("fill", "#ccffcc");
+                         } else {
+                           d3.select(this).style("fill", "#cccccc");
+                         } })
+                         .on("mouseout", function() { if (d3.select(this).attr("style").indexOf("#cccccc") == -1) {
+                           d3.select(this).style("fill", "#ffffff")
+                         } else {
+                           d3.select(this).style("fill", "#eaeaea");
+                         } })*/
+                         .on("click", function() { window.location = "history.html"; });
+
       d3Calendar.calendar.selectAll("headers")
                          .data([0,1,2,3,4,5,6])
                          .enter().append("text")
@@ -185,7 +201,6 @@
                          .attr("dy", 30) // vertical alignment
                          .text(function(d) { return daysOfTheWeek[d]; });
       d3Calendar.datesGroup = d3Calendar.calendar.append("svg:g");
-      var daysInMonthToDisplay = d3Calendar.daysInMonth();
       d3Calendar.datesGroup.selectAll("daysText")
                            .data(daysInMonthToDisplay)
                            .enter()
@@ -197,6 +212,7 @@
                            .attr("transform", "translate(" + d3Calendar.gridXTranslation + "," + d3Calendar.gridYTranslation + ")")
                            .text(function(d) { return d[0]; });
     }
+
   </script>
 
 </div>
