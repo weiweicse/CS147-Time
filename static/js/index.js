@@ -1,4 +1,6 @@
 $(function() {
+    $.stayInWebApp();
+
     // Success message
     if (location.search === '?success') {
         // TODO: more robust query test
