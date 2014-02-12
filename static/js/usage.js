@@ -1,4 +1,5 @@
 $(function() {
+    $.stayInWebApp();
     // boilerplate function
     // currently generates random tasks
     function getTasks() {

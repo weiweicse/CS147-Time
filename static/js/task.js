@@ -1,4 +1,5 @@
 $(function() {
+    $.stayInWebApp();
     var $error_alert = $('#error-alert');
     var $name = $('#task-name-input');
     var $start = $('#start-time-input');
