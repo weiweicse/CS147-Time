@@ -8,11 +8,12 @@ html
 
     body
         include mixins/menubar
-        +menubar('VisualTime', '', '', 'nav.html', 'list')
+        +menubar('VisualTime', '', '', 'nav.html', 'align-justify')
 
         .container
-            .clock
-            .greeting(data-username=user.name)
+            .well
+                .clock
+                .greeting(data-username=user.name)
 
             h3 Today
             .progress
@@ -29,9 +30,9 @@ html
 
             div
                 a(href='task.html')
-                    button.btn.btn-primary.btn-lg(type='button')
+                    button.btn.btn-info.btn-lg.btn-block(type='button')
                         span.glyphicon.glyphicon-record
-                        | Record
+                        | &nbsp;Record
 
         #help
             a(href='#')
