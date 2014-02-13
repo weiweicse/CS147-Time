@@ -9,10 +9,11 @@ html
         include mixins/menubar
         +menubar('History', '/nav.html', 'chevron-left', '', '')
 
-        .container
+        #items.container
             include includes/history-items
 
         include includes/scripts
+        script(src='js/history.js', type='text/javascript')
 
         include mixins/help
         +help("This page shows the history of your recorded time usage.")

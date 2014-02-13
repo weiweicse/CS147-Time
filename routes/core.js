@@ -38,3 +38,40 @@ exports.history = function(req, res) {
         items: randomEvents(dates)
     });
 };
+
+function toInt(s) {
+    return parseInt(s, 10);
+}
+
+function toStr(i) {
+    return i < 10 ? '0'+i : i;
+}
+
+function previousDates(d, n) {
+    var parts = d.split('-').map(toInt);
+    var dates = [];
+    while (n--) {
+        parts[2] -= 1;
+
+        if (parts[2] === 0) {
+            parts[2] = 31;
+            parts[1] -= 1;
+
+            if (parts[1] === 0) {
+                parts[1] = 12;
+                parts[0] -= 1;
+            }
+        }
+
+        dates.push(parts.map(toStr).join('-'));
+    }
+
+    return dates;
+}
+
+exports.history_prev = function(req, res) {
+    var last_date = req.query.date;
+    res.render('includes/history-items', {
+        items: randomEvents(previousDates(last_date, 5))
+    });
+};

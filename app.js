@@ -32,6 +32,7 @@ app.get('/', core.home);
 app.get('/record', core.record);
 app.get('/usage', core.usage);
 app.get('/history', core.history);
+app.get('/history/prev', core.history_prev);
 
 // Add api routes
 app.get('/api/user', api.get_user_info);
