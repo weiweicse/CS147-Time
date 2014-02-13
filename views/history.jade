@@ -1,0 +1,59 @@
+html
+    head
+        title History - VisualTime
+        meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0')
+        include includes/stylesheets
+        link(href='css/history.css', rel='stylesheet', type='text/css')
+
+    body
+        include mixins/menubar
+        +menubar('History', '/nav.html', 'chevron-left', '', '')
+
+        .container
+            .done-list.panel.panel-default
+                .panel-heading
+                    | 2014-02-10
+                    span.badge 2
+                table.table
+                    tbody
+                        tr
+                            td 09&colon;10AM - 11&colon;30AM
+                            td Feed Cat
+                        tr
+                            td 09&colon;10AM - 11&colon;30AM
+                            td Feed Cat
+            .done-list.panel.panel-default
+                .panel-heading
+                    | 2014-02-11
+                    span.badge 3
+                table.table
+                    tbody
+                        tr
+                            td 09&colon;10AM - 11&colon;30AM
+                            td Feed Cat
+                        tr
+                            td 09&colon;10AM - 11&colon;30AM
+                            td Feed Cat
+                        tr
+                            td 09&colon;10AM - 11&colon;30AM
+                            td Feed Cat
+            .done-list.panel.panel-default
+                .panel-heading
+                    | 2014-02-12
+                    span.badge 3
+                table.table
+                    tbody
+                        tr
+                            td 09&colon;10AM - 11&colon;30AM
+                            td Feed Cat
+                        tr
+                            td 09&colon;10AM - 11&colon;30AM
+                            td Feed Cat
+                        tr
+                            td 09&colon;10AM - 11&colon;30AM
+                            td Feed Cat
+
+        include includes/scripts
+
+        include mixins/help
+        +help("This page shows the history of your recorded time usage.")

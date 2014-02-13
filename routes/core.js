@@ -13,3 +13,7 @@ exports.record = function(req, res) {
 exports.usage = function(req, res) {
     res.render('usage');
 };
+
+exports.history = function(req, res) {
+    res.render('history');
+};

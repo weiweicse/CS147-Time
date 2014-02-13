@@ -31,6 +31,7 @@ app.use(express.static(__dirname + '/static'));
 app.get('/', core.home);
 app.get('/record', core.record);
 app.get('/usage', core.usage);
+app.get('/history', core.history);
 
 // Add api routes
 app.get('/api/user', api.get_user_info);
