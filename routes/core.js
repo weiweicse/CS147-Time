@@ -5,3 +5,7 @@ exports.home = function(req, res) {
         }
     });
 };
+
+exports.record = function(req, res) {
+    res.render('record');
+};

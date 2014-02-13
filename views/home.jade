@@ -2,6 +2,7 @@ doctype html
 html
     head
         title VisualTime
+        meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0')
         include includes/app-meta
         include includes/stylesheets
         link(href='css/home.css', rel='stylesheet', type='text/css')
@@ -29,7 +30,7 @@ html
                 #year.progress-bar.progress-bar-warning(role='progressbar', aria-valuemin='0', aria-valuemax='100', style='width: 0%;')
 
             div
-                a(href='task.html')
+                a(href='/record')
                     button.btn.btn-info.btn-lg.btn-block(type='button')
                         span.glyphicon.glyphicon-record
                         | &nbsp;Record
@@ -40,5 +41,6 @@ html
         include includes/scripts
         script(src='js/index.js')
 
+        //- depends on jquery, so put after scripts
         include mixins/help
         +help("This is your home screen, a summary of your time.")

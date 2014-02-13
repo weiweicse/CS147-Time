@@ -1,0 +1,39 @@
+doctype html
+html
+    head
+        title Record Time Usage - VisualTime
+        meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0')
+        include includes/stylesheets
+        link(href='css/record.css', rel='stylesheet', type='text/css')
+
+    body
+        include mixins/menubar
+        +menubar('Record', '/', 'chevron-left', '', '')
+
+        .container
+            h1 Record Time Usage
+
+            form(role='form', action='.')
+                .form-group
+                    label(for='task-name-input') Task Name
+                    input#task-name-input.form-control(type='text', placeholder='Enter task name')
+                .form-group
+                    label(for='start-time-input') Start Time
+                    input#start-time-input.form-control(type='datetime-local', placeholder='Click to enter')
+                .form-group
+                    label(for='end-time-input') End Time
+                    input#end-time-input.form-control(type='datetime-local', placeholder='Click to enter')
+
+                #error-alert.alert.alert-danger(style='display:none;')
+
+                .button-holder
+                    a.record-button(href='/?success')
+                        button.btn.btn-success.btn-lg.btn-block(type='button') Save
+                    a(href='/')
+                        button.btn.btn-danger.btn-lg.btn-block(type='button') Cancel
+
+        include includes/scripts
+        script(src='js/record.js')
+
+        include mixins/help
+        +help("On this page you can record time usage.")
