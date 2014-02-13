@@ -1,0 +1,41 @@
+@import partials/menubar
+
+body
+  // For positioning #success-msg
+  position: relative
+
+.clock
+  margin-top: .1em
+  font-size: 5em
+
+.greeting
+  font-size: 2em
+
+#help
+  position: fixed
+  right: 1em
+  bottom: 1em
+  a
+    color: inherit
+
+#help-panel
+  display: none
+  position: fixed
+  .panel-title
+    position: relative
+    span
+      position: absolute
+      right: 0
+  p
+    color: #333
+
+#success-msg
+  display: none
+  position: absolute
+  left: 0
+  top: 0
+  width: 100%
+  // Reduce .alert's padding.
+  padding: 5px
+  border-radius: 0
+  text-align: center

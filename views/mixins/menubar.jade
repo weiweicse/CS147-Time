@@ -1,0 +1,14 @@
+mixin menubar(title, left_link, left_icon, right_link, right_icon)
+    #menu-bar
+        .wrapper
+            h1= title
+            .container
+                .row
+                    .col-xs-6
+                        if left_link
+                            a(href=left_link)
+                                span(class="icon-right glyphicon glyphicon-#{left_icon}")
+                    .col-xs-6.text-right
+                        if right_link
+                            a(href=right_link)
+                                span(class="icon-right glyphicon glyphicon-#{right_icon}")

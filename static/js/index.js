@@ -1,6 +1,4 @@
 $(function() {
-    $.stayInWebApp();
-
     // Success message
     if (location.search === '?success') {
         // TODO: more robust query test
@@ -21,7 +19,7 @@ $(function() {
         $clock.text(now.toTimeString().substr(0, 8));
         
         var time = now.getHours() < 11 ? 'morning' : (now.getHours() < 17 ? 'afternoon' : 'evening');
-        var name = 'John';
+        var name = $greeting.data('username');
         $greeting.text('Good ' + time + ', ' + name + '!');
     };
     

@@ -1,9 +1,3 @@
-exports.test = function(req, res) {
-    res.render('test', {
-        name: 'John'
-    });
-};
-
 exports.get_user_info = function(req, res) {
     res.json({
         name: 'John'

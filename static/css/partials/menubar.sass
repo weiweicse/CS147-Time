@@ -1,0 +1,41 @@
+@import mixins/link
+
+$viewport-width: 320px
+$status-bar-height: 20px
+$menu-bar-height: 40px
+$menu-bar-title-width: $viewport-width / 2
+$menu-bar-title-height: 20px
+
+body
+  margin-top: $status-bar-height + $menu-bar-height
+
+#menu-bar
+  position: fixed
+  top: 0
+  left: 0
+  right: 0
+  height: $status-bar-height + $menu-bar-height
+  padding-top: $status-bar-height + 5px
+  color: #fff
+  background-color: #5abedb
+
+  .wrapper
+    position: relative
+
+    h1
+      position: absolute
+      top: 50%
+      left: 50%
+      width: $menu-bar-title-width
+      height: $menu-bar-title-height
+      margin-top: - ($menu-bar-title-height/2)
+      margin-left: - ($menu-bar-title-width/2)
+
+      line-height: $menu-bar-title-height
+      font-size: $menu-bar-title-height
+      text-align: center
+
+    .icon-left, .icon-right
+      font-size: $menu-bar-title-height
+
+    @include link-color

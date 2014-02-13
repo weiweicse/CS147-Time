@@ -10,6 +10,7 @@ var PORT = 3000;
 var express = require('express');
 
 // Import components
+var core = require('./routes/core');
 var api = require('./routes/api');
 
 // Create the server instance
@@ -26,7 +27,10 @@ app.set('view engine', 'jade');
 // maps to /static/index.html on this machine
 app.use(express.static(__dirname + '/static'));
 
-// Add routes
+// Add page routes
+app.get('/', core.home);
+
+// Add api routes
 app.get('/api/user', api.get_user_info);
 app.get('/api/stats', api.get_stats);
 app.get('/api/usage/by/:duration', api.get_usage);
