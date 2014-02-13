@@ -26,6 +26,9 @@ $(function() {
 
     var $chart = $('#pie-chart');
     var $legend = $('#task-legends');
+    var chart_options = {
+        animationEasing: 'easeInCubic'
+    };
 
     function updateGraph(tasks) {
         var data = tasks.map(function(t) {
@@ -39,7 +42,7 @@ $(function() {
         $chart.attr('width', width).attr('height', width);
 
         var ctx = $chart[0].getContext('2d');
-        var chart = new Chart(ctx).Pie(data);
+        var chart = new Chart(ctx).Pie(data, chart_options);
 
         $legend.fadeOut().promise().done(function() {
             $legend.html('');
@@ -53,10 +56,10 @@ $(function() {
     }
 
     var $toggler = $('#view-toggler');
-    $toggler.on('click', 'a', function() {
+    $toggler.on('click', 'span', function() {
         // do not re-draw on active item
         var $active_item = $toggler.find('.active');
-        if ($active_item.find('a')[0] === this) return;
+        if ($active_item.find('span')[0] === this) return;
 
         $active_item.removeClass('active');
         $(this).closest('div').addClass('active');
@@ -66,5 +69,5 @@ $(function() {
     });
 
     // manually trigger a click to show daily view
-    $toggler.find('a').first().click();
+    $toggler.find('span').first().click();
 });

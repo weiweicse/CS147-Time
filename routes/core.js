@@ -9,3 +9,7 @@ exports.home = function(req, res) {
 exports.record = function(req, res) {
     res.render('record');
 };
+
+exports.usage = function(req, res) {
+    res.render('usage');
+};

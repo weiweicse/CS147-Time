@@ -9,7 +9,7 @@ html
 
     body
         include mixins/menubar
-        +menubar('VisualTime', '', '', 'nav.html', 'align-justify')
+        +menubar('VisualTime', '/record', 'plus', 'nav.html', 'align-justify')
 
         .container
             .well
@@ -28,12 +28,6 @@ html
             h3 This Year
             .progress
                 #year.progress-bar.progress-bar-warning(role='progressbar', aria-valuemin='0', aria-valuemax='100', style='width: 0%;')
-
-            div
-                a(href='/record')
-                    button.btn.btn-info.btn-lg.btn-block(type='button')
-                        span.glyphicon.glyphicon-record
-                        | &nbsp;Record
 
         #success-msg.alert.alert-success
             strong Task added successfully!

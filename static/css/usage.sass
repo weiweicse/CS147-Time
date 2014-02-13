@@ -1,0 +1,25 @@
+@import partials/menubar
+
+#main
+  margin-top: -$status-bar-height
+
+#view-toggler
+  text-align: center
+  font-size: 1.2em
+
+  > div
+    border: 1px solid $menu-bar-bg
+    border-left: none
+    padding: 3px 0
+
+    &:last-child
+      border-right: none
+
+    &.active
+      background-color: $menu-bar-bg
+
+      span
+        color: #fff
+
+canvas
+  margin-top: 20px

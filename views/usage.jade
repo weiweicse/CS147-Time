@@ -1,0 +1,30 @@
+html
+    head
+        title Usage - VisualTime
+        meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0')
+        include includes/stylesheets
+        link(href='css/usage.css', rel='stylesheet', type='text/css')
+
+    body
+        include mixins/menubar
+        +menubar('Usage', '/nav.html', 'chevron-left', '', '')
+
+        #main.container
+            #view-toggler.row
+                .col-xs-4
+                    span.day Day
+                .col-xs-4
+                    span.week Week
+                .col-xs-4
+                    span.month Month
+
+            canvas#pie-chart
+
+            ul#task-legends.list-unstyled
+
+        include includes/scripts
+        script(src='//cdnjs.cloudflare.com/ajax/libs/Chart.js/0.2.0/Chart.min.js', type='text/javascript')
+        script(src='js/usage.js', type='text/javascript')
+
+        include mixins/help
+        +help("This page shows the usage of your time.")

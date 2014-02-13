@@ -30,6 +30,7 @@ app.use(express.static(__dirname + '/static'));
 // Add page routes
 app.get('/', core.home);
 app.get('/record', core.record);
+app.get('/usage', core.usage);
 
 // Add api routes
 app.get('/api/user', api.get_user_info);
