@@ -34,20 +34,11 @@ html
                         span.glyphicon.glyphicon-record
                         | &nbsp;Record
 
-        #help
-            a(href='#')
-                span.glyphicon.glyphicon-question-sign
-
-        #help-panel.panel.panel-primary
-            .panel-heading
-                h3.panel-title
-                    | Help
-                    span.glyphicon.glyphicon-remove
-            .panel-body
-                p This is your home screen, a summary of your time.
-
         #success-msg.alert.alert-success
             strong Task added successfully!
 
         include includes/scripts
         script(src='js/index.js')
+
+        include mixins/help
+        +help("This is your home screen, a summary of your time.")

@@ -1,0 +1,14 @@
+mixin help(help_text)
+    #help(style="position: fixed; right: 1em; bottom: 1em;")
+        a(href='#', style="color: #fff;")
+            span.glyphicon.glyphicon-question-sign
+
+    #help-panel.panel.panel-primary(style="display: none; position: fixed;")
+        .panel-heading
+            h3.panel-title(style="position: relative;")
+                | Help
+                span.glyphicon.glyphicon-remove(style="position: absolute; right: 0;")
+        .panel-body
+            p= help_text 
+
+    script(src='js/help.js')
