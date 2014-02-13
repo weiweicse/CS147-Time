@@ -10,7 +10,7 @@ var PORT = 3000;
 var express = require('express');
 
 // Import components
-var core = require('./routes/core');
+var api = require('./routes/api');
 
 // Create the server instance
 var app = express();
@@ -27,15 +27,15 @@ app.set('view engine', 'jade');
 app.use(express.static(__dirname + '/static'));
 
 // Add routes
-app.get('/api/user', core.get_user_info);
-app.get('/api/stats', core.get_stats);
-app.get('/api/usage/by/:duration', core.get_usage);
-app.get('/api/trend', core.get_trend);
-app.get('/api/calendar/:year/:month', core.get_calendar);
-app.get('/api/history', core.get_history);
-app.get('/api/history/prev', core.get_history_prev);
-app.get('/api/history/next', core.get_history_next);
-app.post('/api/record/add', core.add_record);
+app.get('/api/user', api.get_user_info);
+app.get('/api/stats', api.get_stats);
+app.get('/api/usage/by/:duration', api.get_usage);
+app.get('/api/trend', api.get_trend);
+app.get('/api/calendar/:year/:month', api.get_calendar);
+app.get('/api/history', api.get_history);
+app.get('/api/history/prev', api.get_history_prev);
+app.get('/api/history/next', api.get_history_next);
+app.post('/api/record/add', api.add_record);
 
 // Start the server
 var port = process.env.PORT || PORT; // 80 for web, 3000 for development
