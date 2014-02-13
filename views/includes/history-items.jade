@@ -1,0 +1,13 @@
+for item in items
+    .done-list.panel.panel-default(data-date=item.date)
+        .panel-heading
+            span= item.date 
+            span.badge= item.events.length
+
+        table.table
+            tbody
+                for event in item.events
+                    tr
+                        td.col-xs-7 #{event.start} - #{event.end}
+                        td.col-xs-5= event.name
+
