@@ -15,7 +15,19 @@ $(function() {
         $error_alert.text(msg).fadeIn();
     }
 
+    // fill default value of end for better usability
+    $end.on('focus', function() {
+        $end.val($start.val());
+    });
+
+    /*
+     * Note: set a.record-button(href='/?success') and preventDefault
+     *       if error === true does not work in web app. So we set
+     *       href=# and do manual redirect on success.
+     */
     $('.record-button').click(function(e) {
+        e.preventDefault();
+
         var error = false;
 
         clearError();
@@ -43,7 +55,7 @@ $(function() {
             }
         }
 
-        if (error)
-            e.preventDefault();
+        if (!error)
+            window.location = '/?success';
     });
 });
