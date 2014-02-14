@@ -10,6 +10,10 @@ exports.nav = function(req, res) {
     res.render('nav');
 };
 
+exports.statistics = function(req, res) {
+    res.render('statistics');
+};
+
 exports.record = function(req, res) {
     res.render('record');
 };

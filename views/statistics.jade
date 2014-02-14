@@ -1,0 +1,28 @@
+html
+    head
+        title Statistics - VisualTime
+        meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0')
+        include includes/stylesheets
+        link(href='css/statistics.css', rel='stylesheet', type='text/css')
+
+    body
+        include mixins/menubar
+        +menubar('Statistics', '/nav', 'chevron-left', '', '')
+
+        .container
+            ul.list-group
+                li.list-group-item
+                    span 123
+                    | Days
+                li.list-group-item
+                    span 256
+                    | Tasks
+                li.list-group-item
+                    span 1973
+                    | Hours
+
+        include includes/scripts
+        script(src='js/history.js', type='text/javascript')
+
+        include mixins/help
+        +help("This page shows the statistics of your recorded time usage.")
