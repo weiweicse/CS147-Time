@@ -1,0 +1,19 @@
+html
+    head
+        title Trend - VisualTime
+        meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0')
+        include includes/stylesheets
+        link(href='css/trend.css', rel='stylesheet', type='text/css')
+    body
+        include mixins/menubar
+        +menubar('Trend', '/nav', 'chevron-left', '', '')
+        .container
+            .canvasWrapper
+                canvas#barContainer(width='600', height='400')
+        script(src='js/Chart.min.js')
+
+        include includes/scripts
+        script(src='js/trend.js', type='text/javascript')
+
+        include mixins/help
+        +help("This page shows the history of your recorded time usage.")

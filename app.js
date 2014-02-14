@@ -36,6 +36,7 @@ app.get('/history/prev', core.history_prev);
 app.get('/nav', core.nav);
 app.get('/statistics', core.statistics);
 app.get('/calendar', core.calendar);
+app.get('/trend', core.trend);
 
 // Add api routes
 app.get('/api/user', api.get_user_info);

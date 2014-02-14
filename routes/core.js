@@ -26,6 +26,10 @@ exports.usage = function(req, res) {
     res.render('usage');
 };
 
+exports.trend = function(req, res) {
+    res.render('trend');
+};
+
 var tasks = ['Feed Cat', 'CS147', 'Exercise', 'Running', 'Studio', 'Movie'];
 
 function randomEvents(dates) {
