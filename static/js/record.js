@@ -17,7 +17,8 @@ $(function() {
 
     // fill default value of end for better usability
     $end.on('focus', function() {
-        $end.val($start.val());
+        if ($start.val() && !$end.val())
+            $end.val($start.val());
     });
 
     /*
