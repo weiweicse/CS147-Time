@@ -1,0 +1,21 @@
+html
+    head
+        title Calendar - VisualTime
+        meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0')
+        include includes/stylesheets
+        link(href='css/calendar.css', rel='stylesheet', type='text/css')
+    body
+        include mixins/menubar
+        +menubar('Calendar', '/nav', 'chevron-left', '', '')
+        .container
+            div(style='text-align: center; margin-top: 2em;')
+                button#back(name='back') &lt;
+                label#currentMonth February 2014
+                button#forward(name='forward') &gt;
+        #chart(style='margin-top:2em;')
+        script(type='text/javascript', src='//cdnjs.cloudflare.com/ajax/libs/d3/3.4.1/d3.min.js')
+        include includes/scripts
+        script(src='js/calendar.js', type='text/javascript')
+
+        include mixins/help
+        +help("This page shows the calendar of your recorded time usage.")

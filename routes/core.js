@@ -14,6 +14,10 @@ exports.statistics = function(req, res) {
     res.render('statistics');
 };
 
+exports.calendar = function(req, res) {
+  res.render('calendar');
+};
+
 exports.record = function(req, res) {
     res.render('record');
 };
