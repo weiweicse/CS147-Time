@@ -1,13 +1,13 @@
 var d3Calendar = function() {
-    var calendarWidth = 550,
-    calendarHeight = 650,
+    var calendarWidth = 300,
+    calendarHeight = 300 * 6 / 7,
     gridXTranslation = 10,
-    gridYTranslation = 40,
+    gridYTranslation = 35,
     cellColorForCurrentMonth = '#EAEAEA',
     cellColorForPreviousMonth = '#FFFFFF',
     counter = 0,
     currentMonth = new Date().getMonth(),
-    monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+    monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
     datesGroup;
     function getCalendarWidth() { return calendarWidth; }
     function getCalendarHeight() { return calendarHeight; }
@@ -95,27 +95,35 @@ function displayNextMonth() {
     renderDaysOfMonth();
 }
 function renderDaysOfMonth(month, year) {
-    $('#currentMonth').text(d3Calendar.monthToDisplayAsText() + ' ' + d3Calendar.yearToDisplay());
+    $('#currentMonth a').text(d3Calendar.monthToDisplayAsText() + ' ' + d3Calendar.yearToDisplay());
     var daysInMonthToDisplay = d3Calendar.daysInMonth();
     var cellPositions = d3Calendar.gridCellPositions;
+    var color = d3.scale.linear()
+        .domain([0, 20])
+        .range(["white", "#5abedb"])
+        .interpolate(d3.interpolateLab);
     d3Calendar.datesGroup
-    .selectAll("text")
-    .data(daysInMonthToDisplay)
-    .attr("x", function (d, i) { return cellPositions[i][0]; })
-    .attr("y", function (d, i) { return cellPositions[i][1]; })
-    .attr("dx", 20) // right padding
-    .attr("dy", 20) // vertical alignment : middle
-    .attr("transform", "translate(" + d3Calendar.gridXTranslation + "," + d3Calendar.gridYTranslation + ")")
-    .text(function (d) { return d[0]; }); // render text for the day of the week
-    d3Calendar.calendar
-    .selectAll("rect")
-    .data(daysInMonthToDisplay)
-    .style("fill", function (d) { return d[1]; });
+        .selectAll("text")
+        .data(daysInMonthToDisplay)
+        .attr("x", function (d, i) { return cellPositions[i][0] - 8; })
+        .attr("y", function (d, i) { return cellPositions[i][1] + 5; })
+        .attr("dx", 20) // right padding
+        .attr("dy", 20) // vertical alignment : middle
+        .attr("transform", "translate(" + d3Calendar.gridXTranslation + "," + d3Calendar.gridYTranslation + ")")
+        .text(function (d) { return d[0]; }); // render text for the day of the week
+        d3Calendar.calendar
+        .selectAll("rect")
+        .data(daysInMonthToDisplay)
+        .style("fill", function() { return color(Math.floor(Math.random() * 20)); }) // function (d) { return d[1]; })
+        .on("click", function() { window.location = "/history"; });
 }
+
 function drawGraphsForMonthlyData() {
 }
+
 function getDataForMonth() {
 }
+
 function renderCalendarGrid(month, year) {
     d3Calendar.calendar = d3.select("#chart")
     .append("svg")
@@ -124,21 +132,20 @@ function renderCalendarGrid(month, year) {
     .attr("height", d3Calendar.calendarHeight)
     .append("g");
     var cellPositions = d3Calendar.gridCellPositions;
-    var daysOfTheWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    var daysOfTheWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     var daysInMonthToDisplay = d3Calendar.daysInMonth();
     d3Calendar.calendar.selectAll("rect")
     .data(cellPositions)
     .enter()
     .append("rect")
     .attr("class", "rect")
-    .attr("date", function (d, i) { return daysInMonthToDisplay[i][0]; })
     .attr("x", function (d) { return d[0]; })
     .attr("y", function (d) { return d[1]; })
     .attr("width", d3Calendar.cellWidth)
     .attr("height", d3Calendar.cellHeight)
-    .style("stroke", "#555")
+    .style("stroke", "white")
     .style("fill", "white")
-    .attr("transform", "translate(" + d3Calendar.gridXTranslation + "," + d3Calendar.gridYTranslation + ")")
+    .attr("transform", "translate(" + d3Calendar.gridXTranslation + "," + d3Calendar.gridYTranslation + ")");
     /*.on("mouseover", function() { if (d3.select(this).attr("style").indexOf("#eaeaea") == -1) {
       d3.select(this).style("fill", "#ccffcc");
       } else {
@@ -149,7 +156,6 @@ function renderCalendarGrid(month, year) {
       } else {
       d3.select(this).style("fill", "#eaeaea");
       } })*/
-    .on("click", function() { window.location = "/history"; });
     d3Calendar.calendar.selectAll("headers")
         .data([0,1,2,3,4,5,6])
         .enter().append("text")
