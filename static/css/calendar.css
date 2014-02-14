@@ -27,3 +27,7 @@ body {
       font-size: 20px; }
     #menu-bar .wrapper a, #menu-bar .wrapper a:link, #menu-bar .wrapper a:visited, #menu-bar .wrapper a:hover, #menu-bar .wrapper a:active {
       color: inherit; }
+
+.pager {
+  margin-top: 0;
+  margin-bottom: 10px; }

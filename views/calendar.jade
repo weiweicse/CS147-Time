@@ -4,17 +4,24 @@ html
         meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0')
         include includes/stylesheets
         link(href='css/calendar.css', rel='stylesheet', type='text/css')
+
     body
         include mixins/menubar
         +menubar('Calendar', '/nav', 'chevron-left', '', '')
+
         .container
-            div(style='text-align: center; margin-top: 2em;')
-                button#back(name='back') &lt;
-                label#currentMonth February 2014
-                button#forward(name='forward') &gt;
-        #chart(style='margin-top:2em;')
-        script(type='text/javascript', src='//cdnjs.cloudflare.com/ajax/libs/d3/3.4.1/d3.min.js')
+            ul.pager
+                li.previous#back
+                    a(href='#') &slarr; PREV
+                li#currentMonth
+                    a(href='#') Feburary 2014 
+                li.next#forward
+                    a(href='#') NEXT &srarr;
+
+        #chart
+
         include includes/scripts
+        script(type='text/javascript', src='//cdnjs.cloudflare.com/ajax/libs/d3/3.4.1/d3.min.js')
         script(src='js/calendar.js', type='text/javascript')
 
         include mixins/help
