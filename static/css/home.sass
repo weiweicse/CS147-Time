@@ -1,9 +1,5 @@
 @import partials/menubar
 
-body
-  // For positioning #success-msg
-  position: relative
-
 .clock
   margin-top: .1em
   font-size: 4.5em
@@ -18,12 +14,17 @@ body
   margin-bottom: 5px
 
 #success-msg
+  // put on top of everything
+  z-index: 100
   display: none
-  position: absolute
+  position: fixed
   left: 0
-  top: 0
+  bottom: 0
   width: 100%
   // Reduce .alert's padding.
   padding: 5px
+  // Undo .alert's margin-bottom, as we are
+  // putting alert at bottom
+  margin-bottom: 0
   border-radius: 0
   text-align: center

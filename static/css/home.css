@@ -28,9 +28,6 @@ body {
     #menu-bar .wrapper a, #menu-bar .wrapper a:link, #menu-bar .wrapper a:visited, #menu-bar .wrapper a:hover, #menu-bar .wrapper a:active {
       color: inherit; }
 
-body {
-  position: relative; }
-
 .clock {
   margin-top: 0.1em;
   font-size: 4.5em;
@@ -45,11 +42,13 @@ body {
   margin-bottom: 5px; }
 
 #success-msg {
+  z-index: 100;
   display: none;
-  position: absolute;
+  position: fixed;
   left: 0;
-  top: 0;
+  bottom: 0;
   width: 100%;
   padding: 5px;
+  margin-bottom: 0;
   border-radius: 0;
   text-align: center; }
