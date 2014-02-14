@@ -3,32 +3,36 @@ html
         title Menu - VisualTime
         meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0')
         include includes/stylesheets
-        link(href='css/history.css', rel='stylesheet', type='text/css')
+        link(href='css/nav.css?q', rel='stylesheet', type='text/css')
+
     body
         include mixins/menubar
         +menubar('Menu', '/', 'chevron-left', '', '')
+
         .container
-            ul.mynav.nav.nav-pills.nav-stacked.col-xs-offset-2.col-xs-6
+            .col-xs-1
+            ul.mynav.nav.nav-pills.nav-stacked.col-xs-10
                 li
                     a(href='/calendar')
                         span.glyphicon.glyphicon-calendar
-                        | Calendar
+                        | &nbsp;Calendar
                 li
                     a(href='/trend')
                         span.glyphicon.glyphicon-signal
-                        | Trend
+                        | &nbsp;Trend
                 li
                     a(href='/usage')
                         span.glyphicon.glyphicon-dashboard
-                        | Usage
+                        | &nbsp;Usage
                 li
                     a(href='/statistics')
                         span.glyphicon.glyphicon-stats
-                        | Statistics
+                        | &nbsp;Statistics
                 li
                     a(href='/history')
                         span.glyphicon.glyphicon-list-alt
-                        | History
+                        | &nbsp;History
+            .col-xs-1
 
         include includes/scripts
 

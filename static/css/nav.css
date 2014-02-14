@@ -29,19 +29,11 @@ body {
       color: inherit; }
 
 .mynav {
-  margin-top: 3em;
-  font-size: 1.2em; }
-  .mynav ul {
-    display: inline-block; }
+  font-size: 1.5em;
+  padding-right: 0; }
+  .mynav a, .mynav a:link, .mynav a:visited, .mynav a:hover, .mynav a:active {
+    color: inherit; }
   .mynav li {
-    margin-top: 2em;
-    display: block;
-    width: 208px;
-    min-height: 50px; }
-
-.nav > li > a {
-  background-color: white;
-  color: black; }
-
-.nav-stacked > li + li {
-  margin-top: 1em; }
+    border: 1px solid #eeeeee;
+    border-radius: 0.5em;
+    margin-bottom: 0.5em; }
