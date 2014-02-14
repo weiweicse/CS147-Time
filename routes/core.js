@@ -6,6 +6,10 @@ exports.home = function(req, res) {
     });
 };
 
+exports.nav = function(req, res) {
+    res.render('nav');
+};
+
 exports.record = function(req, res) {
     res.render('record');
 };

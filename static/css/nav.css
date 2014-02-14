@@ -1,45 +1,47 @@
-@import url('//getbootstrap.com/dist/css/bootstrap.css');
-
 body {
-    background-color: #5abedb;
-    color: #fff;
-}
+  margin-top: 80px; }
 
-.goback {
-  font-size: 2em;
+#menu-bar {
   position: fixed;
-  left: 0.5em;
-  top: 0.5em;
-  color: #fff;
-}
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  padding-top: 25px;
+  color: white;
+  background-color: #5abedb; }
+  #menu-bar .wrapper {
+    position: relative; }
+    #menu-bar .wrapper h1 {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 160px;
+      height: 20px;
+      margin-top: -10px;
+      margin-left: -80px;
+      line-height: 20px;
+      font-size: 20px;
+      text-align: center; }
+    #menu-bar .wrapper .icon-left, #menu-bar .wrapper .icon-right {
+      font-size: 20px; }
+    #menu-bar .wrapper a, #menu-bar .wrapper a:link, #menu-bar .wrapper a:visited, #menu-bar .wrapper a:hover, #menu-bar .wrapper a:active {
+      color: inherit; }
 
 .mynav {
   margin-top: 3em;
-  font-size: 1.2em;
-}
-
-.mynav ul {
-  display: inline-block;
-}
-
-.mynav li {
-  margin-top: 2em;
-  display: block;
-  width: 208px;
-  min-height: 50px;
-}
+  font-size: 1.2em; }
+  .mynav ul {
+    display: inline-block; }
+  .mynav li {
+    margin-top: 2em;
+    display: block;
+    width: 208px;
+    min-height: 50px; }
 
 .nav > li > a {
-  background-color: #fff;
-  color: #000;
-}
+  background-color: white;
+  color: black; }
 
 .nav-stacked > li + li {
-  margin-top: 1em;
-}
-
-#help {
-    position: fixed;
-    right: 1em;
-    bottom: 1em;
-}
+  margin-top: 1em; }

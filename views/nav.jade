@@ -1,0 +1,36 @@
+html
+    head
+        title Menu - VisualTime
+        meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0')
+        include includes/stylesheets
+        link(href='css/history.css', rel='stylesheet', type='text/css')
+    body
+        include mixins/menubar
+        +menubar('Menu', '/', 'chevron-left', '', '')
+        .container
+            ul.mynav.nav.nav-pills.nav-stacked.col-xs-offset-2.col-xs-6
+                li
+                    a(href='calendar.html')
+                        span.glyphicon.glyphicon-calendar
+                        | Calendar
+                li
+                    a(href='trend.html')
+                        span.glyphicon.glyphicon-signal
+                        | Trend
+                li
+                    a(href='/usage')
+                        span.glyphicon.glyphicon-dashboard
+                        | Usage
+                li
+                    a(href='statistics.html')
+                        span.glyphicon.glyphicon-stats
+                        | Statistics
+                li
+                    a(href='/history')
+                        span.glyphicon.glyphicon-list-alt
+                        | History
+
+        include includes/scripts
+
+        include mixins/help
+        +help("Navigation Page")
