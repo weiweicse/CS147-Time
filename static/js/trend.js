@@ -15,8 +15,8 @@ function createChart() {
     var data = {
         labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
         datasets: [{
-            fillColor: "rgba(255,255,255,1)",
-            strokeColor: "rgba(225,255,255,1)",
+            fillColor: "#5abedb",
+            strokeColor: "#5abedb",
             data: [3, 2, 2, 5, 3, 3, 4]
         }]
     };
