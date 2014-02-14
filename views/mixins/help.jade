@@ -9,6 +9,6 @@ mixin help(help_text)
                 | Help
                 span.glyphicon.glyphicon-remove(style="position: absolute; right: 0;")
         .panel-body
-            p= help_text 
+            p!= help_text 
 
     script(src='js/help.js')
