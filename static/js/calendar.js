@@ -1,13 +1,13 @@
 var d3Calendar = function() {
     var calendarWidth = 300,
-    calendarHeight = 300,
+    calendarHeight = 300 * 6 / 7,
     gridXTranslation = 10,
-    gridYTranslation = 40,
+    gridYTranslation = 35,
     cellColorForCurrentMonth = '#EAEAEA',
     cellColorForPreviousMonth = '#FFFFFF',
     counter = 0,
     currentMonth = new Date().getMonth(),
-    monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+    monthNames = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"],
     datesGroup;
     function getCalendarWidth() { return calendarWidth; }
     function getCalendarHeight() { return calendarHeight; }
@@ -95,7 +95,7 @@ function displayNextMonth() {
     renderDaysOfMonth();
 }
 function renderDaysOfMonth(month, year) {
-    $('#currentMonth').text(d3Calendar.monthToDisplayAsText() + ' ' + d3Calendar.yearToDisplay());
+    $('#currentMonth a').text(d3Calendar.monthToDisplayAsText() + ' ' + d3Calendar.yearToDisplay());
     var daysInMonthToDisplay = d3Calendar.daysInMonth();
     var cellPositions = d3Calendar.gridCellPositions;
     var color = d3.scale.linear()
@@ -105,8 +105,8 @@ function renderDaysOfMonth(month, year) {
     d3Calendar.datesGroup
         .selectAll("text")
         .data(daysInMonthToDisplay)
-        .attr("x", function (d, i) { return cellPositions[i][0]; })
-        .attr("y", function (d, i) { return cellPositions[i][1]; })
+        .attr("x", function (d, i) { return cellPositions[i][0] - 8; })
+        .attr("y", function (d, i) { return cellPositions[i][1] + 5; })
         .attr("dx", 20) // right padding
         .attr("dy", 20) // vertical alignment : middle
         .attr("transform", "translate(" + d3Calendar.gridXTranslation + "," + d3Calendar.gridYTranslation + ")")
@@ -143,7 +143,7 @@ function renderCalendarGrid(month, year) {
     .attr("y", function (d) { return d[1]; })
     .attr("width", d3Calendar.cellWidth)
     .attr("height", d3Calendar.cellHeight)
-    .style("stroke", "#555")
+    .style("stroke", "white")
     .style("fill", "white")
     .attr("transform", "translate(" + d3Calendar.gridXTranslation + "," + d3Calendar.gridYTranslation + ")");
     /*.on("mouseover", function() { if (d3.select(this).attr("style").indexOf("#eaeaea") == -1) {
