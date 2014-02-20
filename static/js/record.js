@@ -15,6 +15,26 @@ $(function() {
         $error_alert.text(msg).fadeIn();
     }
 
+    // reference: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString
+    function pad(number) {
+      if (number < 10) {
+          return '0' + number;
+      }
+      return number;
+    }
+
+    function dateToInputValue(date) {
+        return date.getFullYear() +
+            '-' + pad(date.getMonth() + 1) +
+            '-' + pad(date.getDate()) +
+            'T' + pad(date.getHours()) +
+            ':' + pad(date.getMinutes());
+    }
+
+    // auto-fill start date
+    var now = new Date();
+    $start.val(dateToInputValue(now));
+
     // fill default value of end for better usability
     $end.on('focus', function() {
         if ($start.val() && !$end.val())
