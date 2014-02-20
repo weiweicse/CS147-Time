@@ -8,6 +8,13 @@ var PORT = 3000;
 // Express is a web framework for node.js
 // that makes nontrivial applications easier to build
 var express = require('express');
+var mongoose = require('mongoose');
+
+// connect to the Mongo database, whether locally or on Heroku
+var local_database_name = 'record';
+var local_database_uri = 'mongodb://localhost/' + local_database_name;
+var database_uri = process.env.MONGOLAB_URI || local_database_uri;
+mongoose.connect(database_uri);
 
 // Import components
 var core = require('./routes/core');
