@@ -1,0 +1,7 @@
+//- render a single Bootstrap icon
+mixin icon(cls)
+    span(class='glyphicon glyphicon-#{cls}')
+
+mixin badge-icon(cls)
+    span.label.label-primary
+        span(class='glyphicon glyphicon-#{cls}')

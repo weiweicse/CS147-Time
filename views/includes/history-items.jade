@@ -1,3 +1,5 @@
+include ../mixins/icon
+
 for item in items
     .done-list.panel.panel-default(data-date=item.date)
         .panel-heading
@@ -9,5 +11,6 @@ for item in items
                 for event in item.events
                     tr
                         td.col-xs-7 #{event.start} - #{event.end}
-                        td.col-xs-5= event.name
-
+                        td.col-xs-5
+                            = event.name
+                            +badge-icon('edit')
