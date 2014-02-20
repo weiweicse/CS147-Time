@@ -16,33 +16,18 @@ $(function() {
     }
 
     // Time update
-    var $clock = $('.clock');
     var $greeting = $('.greeting');
     
     var updateScreen = function() {
         var now = new Date();
-        $clock.text(now.toTimeString().substr(0, 8));
-        
+
         var time = now.getHours() < 11 ? 'morning' : (now.getHours() < 17 ? 'afternoon' : 'evening');
         var name = $greeting.data('username');
         $greeting.text('Good ' + time + ', ' + name + '!');
     };
     
-    var showProgress = function(obj, x, y) {
-        obj.css('width', x / y * 100 + '%');
-    };
-    
-    var updateProgress = function() {
-        var now = new Date();
-        showProgress($("#today"), now.getHours(), 24);
-        showProgress($("#week"), now.getDay(), 7);
-        showProgress($("#month"), now.getDate() - 1, new Date(now.getYear(), now.getMonth() + 1, 0).getDate());
-        showProgress($("#year"), now.getMonth(), 12);
-    };
-    
     updateScreen();
-    updateProgress();
     
-    setInterval(updateProgress, 60000);    
-    setInterval(updateScreen, 1000);
+    // update every 15 minutes
+    setInterval(updateScreen, 1000*60*15);
 });

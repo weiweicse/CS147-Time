@@ -13,21 +13,7 @@ html
 
         .container
             .well
-                .clock
                 .greeting(data-username=user.name)
-
-            h3 Today
-            .progress
-                #today.progress-bar.progress-bar-warning(role='progressbar', aria-valuemin='0', aria-valuemax='100', style='width: 0%;')
-            h3 This Week
-            .progress
-                #week.progress-bar.progress-bar-warning(role='progressbar', aria-valuemin='0', aria-valuemax='100', style='width: 0%;')
-            h3 This Month
-            .progress
-                #month.progress-bar.progress-bar-warning(role='progressbar', aria-valuemin='0', aria-valuemax='100', style='width: 0%;')
-            h3 This Year
-            .progress
-                #year.progress-bar.progress-bar-warning(role='progressbar', aria-valuemin='0', aria-valuemax='100', style='width: 0%;')
 
         #success-msg.alert.alert-success
             strong Task added successfully!
@@ -37,4 +23,4 @@ html
 
         //- depends on jquery, so put after scripts
         include mixins/help
-        +help("This is your home screen, a summary of your time.<br> At the top of your screen is the current time on a 24-hour digital clock.<br> Each bar partially full in the middle of your screen demonstrates the progress of the time in that bar.<br> The “Record” button sends you to the “Record Time Usage” page where you can record what tasks take up what amount of time.<br> The “Menu” button sends you to the Menu page where you can navigate the apps that Visual Time offers you.")
+        +help("This is your home screen, a timeline of your time.<br>  In the menu bar, the “Record” button sends you to the “Record Time Usage” page where you can record what tasks take up what amount of time.<br> The “Menu” button sends you to the Menu page where you can navigate the apps that Visual Time offers you.")

@@ -6,6 +6,7 @@ body {
   top: 0;
   left: 0;
   right: 0;
+  z-index: 1000;
   height: 60px;
   padding-top: 25px;
   color: white;
@@ -28,11 +29,6 @@ body {
     #menu-bar .wrapper a, #menu-bar .wrapper a:link, #menu-bar .wrapper a:visited, #menu-bar .wrapper a:hover, #menu-bar .wrapper a:active {
       color: inherit; }
 
-.clock {
-  margin-top: 0.1em;
-  font-size: 4.5em;
-  line-height: 0.8em; }
-
 .greeting {
   font-size: 1.75em; }
 
@@ -40,6 +36,15 @@ body {
   font-size: 20px;
   margin-top: 5px;
   margin-bottom: 5px; }
+
+.done-list .badge {
+  float: right; }
+
+td .label {
+  float: right; }
+
+#load-more {
+  margin-bottom: 10px; }
 
 #success-msg {
   z-index: 100;
