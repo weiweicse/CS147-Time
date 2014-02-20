@@ -12,8 +12,29 @@ html
         +menubar('VisualTime', '/record', 'plus', '/nav', 'align-justify')
 
         .container
-            .well
-                .greeting(data-username=user.name)
+            h3.greeting(data-username=user.name)
+
+            p
+                | Quick visualization of today (8AM-10PM):
+            //- TODO: only a demo
+            .progress
+                #today.progress-bar.progress-bar-empty(role='progressbar', style='width: 30%;')
+                #today.progress-bar.progress-bar-success(role='progressbar', style='width: 5%;')
+                #today.progress-bar.progress-bar-empty(role='progressbar', style='width: 20%;')
+                #today.progress-bar.progress-bar-success(role='progressbar', style='width: 10%;')
+                #today.progress-bar.progress-bar-empty(role='progressbar', style='width: 10%;')
+                #today.progress-bar.progress-bar-success(role='progressbar', style='width: 10%;')
+
+            include mixins/icon
+            p.text-muted
+                | Hit&nbsp;
+                +icon('plus')
+                | &nbsp;to record what you've done.
+
+            hr
+
+        .container.timeline
+            h3 Your Timeline
 
             #items
                 include includes/history-items

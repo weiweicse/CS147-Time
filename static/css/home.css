@@ -29,17 +29,26 @@ body {
     #menu-bar .wrapper a, #menu-bar .wrapper a:link, #menu-bar .wrapper a:visited, #menu-bar .wrapper a:hover, #menu-bar .wrapper a:active {
       color: inherit; }
 
-.greeting {
-  font-size: 1.75em; }
-
 .done-list .badge {
   float: right; }
+
+h3 {
+  margin-top: 0; }
+
+.progress-bar-empty {
+  background-color: rgba(255, 255, 255, 0); }
 
 td .label {
   float: right; }
 
 #load-more {
   margin-bottom: 10px; }
+
+.panel {
+  margin-bottom: 10px; }
+
+.panel-heading {
+  padding: 8px; }
 
 #success-msg {
   z-index: 100;
