@@ -1,11 +1,19 @@
 $(function() {
-    var loading_prev = false;
+    // "lock"
+    var is_loading = false;
     var $items = $('#items');
+    var $load_buttom = $('#load-more');
+    var auto_load_times = 3;
 
     function loadPreviousItems() {
         // throttling
-        if (loading_prev) return;
-        loading_prev = true;
+        if (is_loading) return;
+        is_loading = true;
+
+        // no harm if it's negative
+        --auto_load_times;
+
+        $load_buttom.addClass('disabled').text('Loading...');
 
         var date = $items.find('.done-list:last-child').data('date');
 
@@ -13,10 +21,14 @@ $(function() {
             date: date
         }).done(function(html) {
             $items.append(html);
-        }).always(function() {
-            loading_prev = false;
+            $load_buttom.removeClass('disabled').text('Load More');
+            is_loading = false;
+        }).error(function() {
+            $load_buttom.addClass('btn-danger').text("Something's wrong. Please refresh.");
         });
     }
+
+    $load_buttom.on('click', loadPreviousItems);
 
     $(window).on('scroll', function() {
         var id;
@@ -27,7 +39,8 @@ $(function() {
         } else if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight+80) {
             // reached bottom, load earlier items
             console.log('at bottom');
-            loadPreviousItems();
+            if (auto_load_times > 0)
+                loadPreviousItems();
         }
     });
 });

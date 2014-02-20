@@ -12,8 +12,11 @@ html
         else
             +menubar('History', '/nav', 'chevron-left', '', '')
 
-        #items.container
-            include includes/history-items
+        .container
+            #items
+                include includes/history-items
+
+            button#load-more.btn.btn-info.btn-block(type='button') Load More
 
         include includes/scripts
         script(src='js/history.js', type='text/javascript')
