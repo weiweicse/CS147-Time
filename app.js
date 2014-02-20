@@ -31,7 +31,6 @@ app.use(express.static(__dirname + '/static'));
 app.get('/', core.home);
 app.get('/record', core.record);
 app.get('/usage', core.usage);
-app.get('/history', core.history);
 app.get('/history/prev', core.history_prev);
 app.get('/nav', core.nav);
 app.get('/statistics', core.statistics);

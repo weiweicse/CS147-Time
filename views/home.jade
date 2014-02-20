@@ -15,11 +15,17 @@ html
             .well
                 .greeting(data-username=user.name)
 
+            #items
+                include includes/history-items
+
+            button#load-more.btn.btn-info.btn-block(type='button') Load More
+
         #success-msg.alert.alert-success
             strong Task added successfully!
 
         include includes/scripts
         script(src='js/index.js')
+        script(src='js/history.js')
 
         //- depends on jquery, so put after scripts
         include mixins/help

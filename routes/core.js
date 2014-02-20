@@ -1,8 +1,11 @@
 exports.home = function(req, res) {
+    var dates = ['2014-02-13', '2014-02-12', '2014-02-11', '2014-02-10'];
     res.render('home', {
         user: {
             name: 'John'
-        }
+        },
+        items: randomEvents(dates),
+        from: req.query.from
     });
 };
 
@@ -47,14 +50,6 @@ function randomEvents(dates) {
         };
     });
 }
-
-exports.history = function(req, res) {
-    var dates = ['2014-02-13', '2014-02-12', '2014-02-11', '2014-02-10'];
-    res.render('history', {
-        items: randomEvents(dates),
-        from: req.query.from
-    });
-};
 
 function toInt(s) {
     return parseInt(s, 10);

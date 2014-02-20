@@ -32,11 +32,6 @@ body {
 .greeting {
   font-size: 1.75em; }
 
-.container h3 {
-  font-size: 20px;
-  margin-top: 5px;
-  margin-bottom: 5px; }
-
 .done-list .badge {
   float: right; }
 
