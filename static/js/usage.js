@@ -27,6 +27,7 @@ $(function() {
     var $chart = $('#pie-chart');
     var $legend = $('#task-legends');
     var chart_options = {
+        animationSteps: 20,
         animationEasing: 'easeInCubic'
     };
 
