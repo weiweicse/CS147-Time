@@ -4,11 +4,12 @@ html
         title Record Time Usage - VisualTime
         meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0')
         include includes/stylesheets
-        link(href='css/record.css', rel='stylesheet', type='text/css')
+        link(href='/css/record.css', rel='stylesheet', type='text/css')
         if !is_mobile
             link(href='//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css', rel='stylesheet', type='text/css')
             link(href='/css/jquery-ui-timepicker-addon.css', rel='stylesheet', type='text/css')
 
+    - var browser_class = is_mobile ? 'mobile' : 'desktop'
     body(data-browser=browser_class)
         include mixins/menubar
         +menubar('Record', '/', 'chevron-left', '', '')
@@ -25,13 +26,13 @@ html
                     if is_mobile
                         input#start-time-input.form-control(type='datetime-local', placeholder='Click to enter')
                     else
-                        input#start-time-input.form-control(placeholder='Click to enter')
+                        input#start-time-input.form-control(type='text', placeholder='Tap to enter')
                 .form-group
                     label(for='end-time-input') End Time
                     if is_mobile
                         input#end-time-input.form-control(type='datetime-local', placeholder='Click to enter')
                     else
-                        input#end-time-input.form-control(placeholder='Click to enter')
+                        input#end-time-input.form-control(type='text', placeholder='Tap to enter')
 
                 #error-alert.alert.alert-danger(style='display:none;')
 

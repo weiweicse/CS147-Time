@@ -69,6 +69,7 @@ app.get('/api/history', api.get_history);
 app.get('/api/history/prev', api.get_history_prev);
 app.get('/api/history/next', api.get_history_next);
 app.post('/api/record/add', api.add_record);
+app.post('/api/record/update', core.update_record);
 
 // Start the server
 var port = process.env.PORT || PORT; // 80 for web, 3000 for development

@@ -5,8 +5,12 @@ html
         meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0')
         include includes/stylesheets
         link(href='/css/record.css', rel='stylesheet', type='text/css')
+        if !is_mobile
+            link(href='//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css', rel='stylesheet', type='text/css')
+            link(href='/css/jquery-ui-timepicker-addon.css', rel='stylesheet', type='text/css')
 
-    body
+    - var browser_class = is_mobile ? 'mobile' : 'desktop'
+    body(data-browser=browser_class)
         include mixins/menubar
         +menubar('Edit', back_url, 'chevron-left', '', '')
 
@@ -16,27 +20,38 @@ html
             form(role='form', action='.')
                 .form-group
                     label(for='task-name-input') Task Name
-                    input#task-name-input.form-control(type='text', placeholder='Enter task name')
+                    input#task-name-input.form-control(type='text', value=task, placeholder='Enter task name')
                 .form-group
                     label(for='start-time-input') Start Time
-                    input#start-time-input.form-control(type='datetime-local', placeholder='Click to enter')
+                    if is_mobile
+                        input#start-time-input.form-control(type='datetime-local', value=from, placeholder='Click to enter')
+                    else
+                        input#start-time-input.form-control(type='text', value=from, placeholder='Tap to enter')
                 .form-group
                     label(for='end-time-input') End Time
-                    input#end-time-input.form-control(type='datetime-local', placeholder='Click to enter')
+                    if is_mobile
+                        input#end-time-input.form-control(type='datetime-local', value=to, placeholder='Click to enter')
+                    else
+                        input#end-time-input.form-control(type='text', value=to, placeholder='Tap to enter')
 
                 #error-alert.alert.alert-danger(style='display:none;')
 
                 .button-holder
-                    a.record-button(href='#')
+                    //- use data-id=id will cause double quote!
+                    a.update-button(href='#', data-id='#{id}')
                         button.btn.btn-success.btn-lg.btn-block(type='button') Update
-                    a(href=back_url)
+                    a.cancel-button(href=back_url)
                         button.btn.btn-warning.btn-lg.btn-block(type='button') Cancel
                     hr
-                    form(action='/delete/123456', method='post')
-                        button.btn.btn-danger.btn-lg.btn-block(type='submit') Delete
+                    form(action='/delete/#{id}', method='post')
+                        button.delete-button.btn.btn-danger.btn-lg.btn-block(type='submit') Delete
 
         include includes/scripts
-        script(src='/js/record.js')
+        if !is_mobile
+            script(src='//code.jquery.com/ui/1.10.4/jquery-ui.js')
+            script(src='/js/jquery-ui-timepicker-addon.js')
+        //- should put after datepicker
+        script(src='/js/edit.js')
 
         include mixins/help
         +help("This is your “Record Time Usage” screen. On this page, you can record what task accomplished, what time you started that task, and what time that task ended.<br> The tasks that you save on this page are recorded into your Visual Time account and will appear on the applications in the “Menu” screen. Recording these tasks will help you get a better grasp of how you visualize your time .<br> Press the “Cancel” button to stop recording a task and to return to the home screen.")

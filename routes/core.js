@@ -51,7 +51,7 @@ function normalizeDate(date) {
 }
 
 function normalizeTime(date) {
-    var hour = date.getHours()+1;
+    var hour = date.getHours();
     var ampm = hour >= 12 ? 'PM' : 'AM';
     hour = hour % 12;
     hour = hour === 0 ? 12 : hour;
@@ -113,14 +113,25 @@ exports.calendar = function(req, res) {
 exports.record = function(req, res) {
     var is_mobile = /mobile/i.test(req.header('user-agent'));
     res.render('record', {
-        is_mobile: is_mobile,
-        browser_class: is_mobile ? 'mobile' : 'desktop'
+        is_mobile: is_mobile
     });
 };
 
+// convert to YY/DD/YYYY HH:MM
+function datetimePickerFormat(date) {
+    var d = [date.getMonth()+1, date.getDate(), date.getFullYear()].map(pad).join('/');
+    var t = [date.getHours(), date.getMinutes()].map(pad).join(':');
+    return d + ' ' + t;
+}
+
 exports.edit = function(req, res) {
+    var is_mobile = /mobile/i.test(req.header('user-agent'));
     var id = req.params.id;
     var back_url = req.get('Referer');
+
+    if (!back_url)
+        back_url = '/';
+
     // TODO: remove hack
     var lidx = back_url.lastIndexOf('?');
     if (lidx > -1)
@@ -129,9 +140,22 @@ exports.edit = function(req, res) {
     models.Record
         .findOne({"_id": id})
         .exec(function(err, record) {
-            var from = record.from;
-            var to = record.to;
+            var from, to;
+
+            if (is_mobile) {
+                from = record.from.toISOString();
+                to = record.to.toISOString();
+            } else {
+                from = datetimePickerFormat(record.from);
+                to = datetimePickerFormat(record.to);
+            }
+
             res.render('edit', {
+                is_mobile: is_mobile,
+                id: record._id,
+                task: record.task,
+                from: from,
+                to: to,
                 back_url: back_url
             });
         });
@@ -156,6 +180,35 @@ exports.add_record = function(req, res) {
         }
         res.redirect('/');
     }
+};
+
+exports.update_record = function(req, res) {
+    var form_data = req.body;
+    if (!form_data.id) {
+        res.send(404);
+        return;
+    }
+
+    models.Record.findOne({
+        "_id": form_data.id
+    }).exec(function(err, record) {
+        if (err) {
+            console.log(err);
+            res.send(404);
+        }
+
+        record.task = form_data.task;
+        record.from = form_data.from;
+        record.to = form_data.to;
+
+        record.save(function(err) {
+            if (err) {
+                console.log(error);
+                res.send(500);
+            }
+            res.send(200);
+        });
+    });
 };
 
 exports.usage = function(req, res) {
