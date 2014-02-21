@@ -103,7 +103,9 @@ exports.nav = function(req, res) {
 };
 
 exports.statistics = function(req, res) {
-    res.render('statistics');
+    res.render('statistics', {
+        username: req.session.username
+    });
 };
 
 exports.calendar = function(req, res) {
@@ -122,6 +124,22 @@ function datetimePickerFormat(date) {
     var d = [date.getMonth()+1, date.getDate(), date.getFullYear()].map(pad).join('/');
     var t = [date.getHours(), date.getMinutes()].map(pad).join(':');
     return d + ' ' + t;
+}
+
+// reference: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString
+function pad(number) {
+  if (number < 10) {
+      return '0' + number;
+  }
+  return number;
+}
+
+function dateToInputValue(date) {
+    return date.getFullYear() +
+        '-' + pad(date.getMonth() + 1) +
+        '-' + pad(date.getDate()) +
+        'T' + pad(date.getHours()) +
+        ':' + pad(date.getMinutes());
 }
 
 exports.edit = function(req, res) {
@@ -143,8 +161,8 @@ exports.edit = function(req, res) {
             var from, to;
 
             if (is_mobile) {
-                from = record.from.toISOString();
-                to = record.to.toISOString();
+                from = dateToInputValue(record.from);
+                to = dateToInputValue(record.to);
             } else {
                 from = datetimePickerFormat(record.from);
                 to = datetimePickerFormat(record.to);
@@ -161,16 +179,45 @@ exports.edit = function(req, res) {
         });
 };
 
+function toInt10(s) {
+    return parseInt(s, 10);
+}
+
+// convert date string like '2014-02-21T03:22' to Date
+// Note that we can only use input(type=datetime-local),
+// the returned value is local, not UTC. As a result,
+// append a :00-08:00' prefix solves the problem.
+var date_rgx = /(\d+)-(\d+)-(\d+)T(\d+):(\d+)/;
+function convertISOToDate(date_str) {
+    var match = date_rgx.exec(date_str);
+    if (!match) {
+        console.warn('Cannot convert', date_str, 'to Date. Return as is.');
+        return date_str;
+    }
+    var d = new Date(date_str + ':00-08:00');
+    console.log(d);
+    return d;
+}
+
 exports.add_record = function(req, res) {
     var form_data = req.body;
     console.log("form data");
     console.log(form_data);
-    var record = new models.Record({
+    var data = {
         'task': form_data.task,
         'from': form_data.from,
         'to': form_data.to,
         'user': req.session.username
-    });
+    };
+
+    var is_mobile = /mobile/i.test(req.header('user-agent'));
+    if (is_mobile) {
+        // convert to Date
+        data.from = convertISOToDate(form_data.from);
+        data.to = convertISOToDate(form_data.to);
+    }
+
+    var record = new models.Record(data);
     record.save(afterSaving);
 
     function afterSaving(err) {
@@ -199,6 +246,7 @@ exports.delete_record = function(req, res) {
 
 exports.update_record = function(req, res) {
     var form_data = req.body;
+    console.log(form_data);
     if (!form_data.id) {
         res.send(404);
         return;
@@ -213,8 +261,15 @@ exports.update_record = function(req, res) {
         }
 
         record.task = form_data.task;
-        record.from = form_data.from;
-        record.to = form_data.to;
+        record.from = new Date(form_data.from);
+        record.to = new Date(form_data.to);
+
+        var is_mobile = /mobile/i.test(req.header('user-agent'));
+        if (is_mobile) {
+            // convert to Date
+            record.from = convertISOToDate(form_data.from);
+            record.to = convertISOToDate(form_data.to);
+        }
 
         record.save(function(err) {
             if (err) {
