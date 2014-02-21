@@ -142,19 +142,26 @@ function dateToInputValue(date) {
         ':' + pad(date.getMinutes());
 }
 
+// strip domain from url because stayInWebApp only works for url
+// without domain
+function removeDomain(url) {
+    return url.substring(url.indexOf('/', url.indexOf('//')+2));
+}
+
 exports.edit = function(req, res) {
     var is_mobile = /mobile/i.test(req.header('user-agent'));
     var id = req.params.id;
     var back_url = req.get('Referer');
 
     if (!back_url)
-        back_url = '/';
+        back_url = '///';
 
     // TODO: remove hack
     var lidx = back_url.lastIndexOf('?');
     if (lidx > -1)
         back_url = back_url.substring(0, lidx);
 
+    back_url = removeDomain(back_url);
     models.Record
         .findOne({"_id": id})
         .exec(function(err, record) {
@@ -325,6 +332,9 @@ exports.history_day = function(req, res) {
     var last_date = parts.join('-');
     var high = new Date(last_date + ' 23:59:59');
     var low = new Date(last_date + ' 00:00:00');
+    var back_url = req.get('Referer');
+    if (!back_url)
+        back_url = '///';
 
     models.Record
     .find({
@@ -335,7 +345,7 @@ exports.history_day = function(req, res) {
         var lists = populateRecords(records, low, high);
         res.render('history-day', {
             date: last_date,
-            back_url: req.get('Referer'),
+            back_url: removeDomain(back_url),
             items: lists
         });
     });
