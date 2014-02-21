@@ -41,14 +41,15 @@ function createChart() {
     $.get('/api/trend', function(d) {
         console.log(data);
         data.datasets[0].data = d;
-    });
-    console.log(data);
-    var cht = document.getElementById('barContainer');
-    var ctx = cht.getContext('2d');
-    var barChart = new Chart(ctx).Bar(data, {
-        scaleOverride: true,
-        scaleSteps: 1,
-        scaleStepWidth: Math.ceil(5 / 1),
-        scaleStartValue: 0
+        var cht = document.getElementById('barContainer');
+        var ctx = cht.getContext('2d');
+        var ymax = Math.max.apply(Math, data.datasets[0].data);
+        console.log("ymax: " + ymax);
+        var barChart = new Chart(ctx).Bar(data, {
+            scaleOverride: true,
+            scaleSteps: 1,
+            scaleStepWidth: Math.ceil(ymax / 1),
+            scaleStartValue: 0
+        });
     });
 }
