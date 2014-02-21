@@ -7,10 +7,26 @@ exports.get_user_info = function(req, res) {
 };
 
 exports.get_stats = function(req, res) {
-    res.json({
-        days: 123,
-        tasks: 256,
-        hours: 1973
+    var json = {};
+
+    var promise = models.Record
+        .find()
+        .exec();
+
+    promise.addBack(function(err, records) {
+        var starttime = new Date();
+        var cnt = records.length;
+        var sum = 0;
+        for (var i = 0; i < records.length; i++) {
+            var record = records[i];
+            starttime = Math.min(record.from, starttime);
+            sum += (record.to - record.from) / 1000 / 60;
+        }
+        res.json({
+            "days": new Date() - starttime,
+            "tasks": cnt,
+            "hours": sum
+        });
     });
 };
 
