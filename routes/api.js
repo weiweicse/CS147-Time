@@ -1,3 +1,5 @@
+var models = require('../models');
+
 exports.get_user_info = function(req, res) {
     res.json({
         name: 'John'
@@ -5,10 +7,26 @@ exports.get_user_info = function(req, res) {
 };
 
 exports.get_stats = function(req, res) {
-    res.json({
-        days: 123,
-        tasks: 256,
-        hours: 1973
+    var json = {};
+
+    var promise = models.Record
+        .find()
+        .exec();
+
+    promise.addBack(function(err, records) {
+        var starttime = new Date();
+        var cnt = records.length;
+        var sum = 0;
+        for (var i = 0; i < records.length; i++) {
+            var record = records[i];
+            starttime = Math.min(record.from, starttime);
+            sum += (record.to - record.from) / 1000 / 60;
+        }
+        res.json({
+            "days": new Date() - starttime,
+            "tasks": cnt,
+            "hours": sum
+        });
     });
 };
 
@@ -36,7 +54,44 @@ exports.get_usage = function(req, res) {
 };
 
 exports.get_trend = function(req, res) {
-    res.json([5, 4, 6, 8, 1, 7, 2]);
+    var starttime = new Date();
+    starttime.setHours(0);
+    starttime.setMinutes(0);
+    starttime.setSeconds(0);
+    starttime.setDate(starttime.getDate() - 29);
+    console.log(starttime);
+    models.Record
+        .find({
+            from: {$gte: starttime}
+        })
+        .exec(afterFinding);
+
+    function afterFinding(err, records) {
+        if (err) {
+            console.log(err);
+            res.send(500);
+        }
+        var cnt = {};
+        var now = new Date();
+        // initialization
+        for (var d = starttime; d <= now; d.setDate(d.getDate() + 1)) {
+            cnt[d] = 0;
+        }
+        // statistics
+        for (var i = 0; i < records.length; i++) {
+            var from = records[i].from;
+            from.setHours(0);
+            from.setMinutes(0);
+            from.setSeconds(0);
+            cnt[from]++;
+        }
+        // convert map to array
+        var arr = [];
+        for (var key in cnt) {
+            arr.push(cnt[key]);
+        }
+        res.json(arr);
+    }
 };
 
 exports.get_calendar = function(req, res) {
