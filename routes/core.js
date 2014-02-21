@@ -87,3 +87,13 @@ exports.history_prev = function(req, res) {
         items: randomEvents(previousDates(last_date, 5))
     });
 };
+
+exports.history_day = function(req, res) {
+    var parts = [req.params.year, req.params.month, req.params.day];
+    var last_date = parts.join('-');
+    res.render('history-day', {
+        date: last_date,
+        back_url: req.get('Referer'),
+        items: randomEvents([last_date])
+    });
+};

@@ -1,0 +1,28 @@
+doctype html
+html
+    head
+        title VisualTime
+        meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0')
+        include includes/stylesheets
+        link(href='/css/day.css', rel='stylesheet', type='text/css')
+
+    body
+        include mixins/menubar
+        +menubar(date, back_url, 'chevron-left', '', '')
+
+        .container.timeline
+            if items[0].events.length
+                h3= date
+                #items
+                    include includes/history-items
+            else
+                p
+                    | No activity is recorded for 
+                    = date
+                    | . Record an activity by tapping on the button below.
+
+        include includes/scripts
+
+        //- depends on jquery, so put after scripts
+        include mixins/help
+        +help("This page shows a list of activities you've done on " + date + ". You can edit them by tapping on the blue button.")

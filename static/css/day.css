@@ -43,21 +43,3 @@ td .label {
 
 .panel-heading {
   padding: 8px; }
-
-.progress-bar-empty {
-  background-color: rgba(255, 255, 255, 0); }
-
-#load-more {
-  margin-bottom: 10px; }
-
-#success-msg {
-  z-index: 100;
-  display: none;
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  padding: 5px;
-  margin-bottom: 0;
-  border-radius: 0;
-  text-align: center; }

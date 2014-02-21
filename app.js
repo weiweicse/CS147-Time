@@ -32,6 +32,7 @@ app.get('/', core.home);
 app.get('/record', core.record);
 app.get('/usage', core.usage);
 app.get('/history/prev', core.history_prev);
+app.get('/history/:year/:month/:day', core.history_day);
 app.get('/nav', core.nav);
 app.get('/statistics', core.statistics);
 app.get('/calendar', core.calendar);
