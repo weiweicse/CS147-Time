@@ -12,17 +12,17 @@ html
         .container
             ul.list-group
                 li.list-group-item
-                    span 123
+                    span#days 123
                     | Days
                 li.list-group-item
-                    span 256
+                    span#tasks 256
                     | Tasks
                 li.list-group-item
-                    span 1973
+                    span#hours 1973
                     | Hours
 
         include includes/scripts
-        script(src='js/history.js', type='text/javascript')
+        script(src='js/statistics.js', type='text/javascript')
 
         include mixins/help
         +help("This app is where you can visualize the time that you allocate to certain tasks through explicit data. Statistics will tell you how many days you have been using Visual Time, how many tasks you have accomplished since you began using Visual Time, and how much time you have recorded on Visual Time.")
