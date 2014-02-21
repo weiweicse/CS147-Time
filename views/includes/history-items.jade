@@ -11,8 +11,8 @@ for item in items
                 tbody
                     for event in item.events
                         tr
-                            td.col-xs-7 #{event.start} - #{event.end}
-                            td.col-xs-5
+                            td.col-xs-6 #{event.start} - #{event.end}
+                            td.col-xs-6
                                 = event.name
                                 //- TODO: use real id
                                 a(href='/edit/#{event.id}')

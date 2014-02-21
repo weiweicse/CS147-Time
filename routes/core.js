@@ -120,13 +120,19 @@ exports.record = function(req, res) {
 
 exports.edit = function(req, res) {
     var id = req.params.id;
+    var back_url = req.get('Referer');
+    // TODO: remove hack
+    var lidx = back_url.lastIndexOf('?');
+    if (lidx > -1)
+        back_url = back_url.substring(0, lidx);
+
     models.Record
         .findOne({"_id": id})
         .exec(function(err, record) {
             var from = record.from;
             var to = record.to;
             res.render('edit', {
-                back_url: req.get('Referer')
+                back_url: back_url
             });
         });
 };
@@ -175,37 +181,10 @@ exports.history_prev = function(req, res) {
             'from': {$lt: high, $gte: low}
         })
         .exec(function(err, records) {
-            var num_records = records.length;
-            var dates = {};
-            for (var d = low; d < high; d.setDate(d.getDate() + 1)) {
-                dates[d] = [];
-            }
-            for (var i = 0; i < num_records; i++) {
-                var record = records[i];
-                var from = record.from;
-                from.setHours(0);
-                from.setMinutes(0);
-                from.setSeconds(0);
-                console.log("id " + record._id);
-                dates[from].push({
-                    id: record._id,
-                    name: record.task,
-                    start: record.from,
-                    end: record.to
-                });
-            }
-            lists = [];
-            for (var date in dates) {
-                lists.push({
-                    date: date,
-                    events: dates[date]
-                });
-            }
+            var lists = populateRecords(records, low, high);
             lists.sort(function(a, b) {
                 return new Date(a.date) < new Date(b.date);
             });
-            console.log("print lists");
-            console.log(lists);
             res.render('includes/history-items', {
                 items: lists
             });
@@ -215,48 +194,16 @@ exports.history_prev = function(req, res) {
 exports.history_day = function(req, res) {
     var parts = [req.params.year, req.params.month, req.params.day];
     var last_date = parts.join('-');
-    var high = new Date(last_date);
-    var low = new Date();
-    low.setDate(high.getDate());
-    low.setHours(0);
-    low.setMinutes(0);
-    low.setSeconds(0);
-    high.setDate(low.getDate() + 1);
+    var high = new Date(last_date + ' 23:59:59');
+    var low = new Date(last_date + ' 00:00:00');
+
     models.Record
     .find({
         'user': req.session.username,
         'from': {$lt: high, $gte: low}
     })
     .exec(function(err, records) {
-        if (err) console.log(err);
-        var num_records = records.length;
-        var dates = {};
-        for (var d = low; d < high; d.setDate(d.getDate() + 1)) {
-            dates[d] = [];
-        }
-        console.log(dates);
-        for (var i = 0; i < num_records; i++) {
-            var record = records[i];
-            var from = record.from;
-            from.setHours(0);
-            from.setMinutes(0);
-            from.setSeconds(0);
-            console.log("id:" + record._id);
-            dates[from].push({
-                id: record._id,
-                name: record.task,
-                start: record.from,
-                end: record.to
-            });
-        }
-        lists = [];
-        console.log(lists);
-        for (var date in dates) {
-            lists.push({
-                date: date,
-                events: dates[date]
-            });
-        }
+        var lists = populateRecords(records, low, high);
         res.render('history-day', {
             date: last_date,
             back_url: req.get('Referer'),

@@ -115,7 +115,7 @@ function renderDaysOfMonth(month, year) {
         .selectAll("rect")
         .data(daysInMonthToDisplay)
         .style("fill", function() { return color(Math.floor(Math.random() * 20)); }) // function (d) { return d[1]; })
-        .on("click", function() { window.location = "/history/2014/02/14?from=calendar"; });
+        .on("click", function() { window.location = "/history/2014/02/19?from=calendar"; });
 }
 
 function drawGraphsForMonthlyData() {
