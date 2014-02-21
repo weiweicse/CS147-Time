@@ -182,6 +182,21 @@ exports.add_record = function(req, res) {
     }
 };
 
+exports.delete_record = function(req, res) {
+    var id = req.params.id;
+
+    models.Record.findOne({
+        "_id": id
+    }).remove().exec(function(err) {
+        if (err) {
+            console.log(err);
+            res.send(404);
+        }
+
+        res.redirect('/');
+    });
+};
+
 exports.update_record = function(req, res) {
     var form_data = req.body;
     if (!form_data.id) {

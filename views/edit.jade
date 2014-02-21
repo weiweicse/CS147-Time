@@ -42,9 +42,9 @@ html
                         button.btn.btn-success.btn-lg.btn-block(type='button') Update
                     a.cancel-button(href=back_url)
                         button.btn.btn-warning.btn-lg.btn-block(type='button') Cancel
-                    hr
-                    form(action='/delete/#{id}', method='post')
-                        button.delete-button.btn.btn-danger.btn-lg.btn-block(type='submit') Delete
+            hr
+            form(action='/record/delete/#{id}', method='post')
+                button.delete-button.btn.btn-danger.btn-lg.btn-block(type='submit') Delete
 
         include includes/scripts
         if !is_mobile

@@ -78,4 +78,10 @@ $(function() {
             });
         }
     });
+
+    $('.delete-button').click(function(e) {
+        if (confirm('Delete is non-recoverale. Are you sure?')) {
+            $(this).closest('.form').submit();
+        }
+    });
 });

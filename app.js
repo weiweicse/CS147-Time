@@ -58,6 +58,7 @@ app.get('/statistics', core.statistics);
 app.get('/calendar', core.calendar);
 app.get('/trend', core.trend);
 app.post('/record/add', core.add_record);
+app.post('/record/delete/:id', core.delete_record);
 
 // Add api routes
 app.get('/api/user', api.get_user_info);
