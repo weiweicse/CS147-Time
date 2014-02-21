@@ -73,12 +73,12 @@ var d3Calendar = function() {
         setDatesGroup: setDatesGroup,
         incrementCounter: incrementCounter,
         decrementCounter: decrementCounter,
-        monthToDisplay: monthToDisplay(),
+        monthToDisplay: monthToDisplay,
         monthToDisplayAsText: monthToDisplayAsText,
         yearToDisplay: yearToDisplay,
         gridCellPositions: gridCellPositions(),
         daysInMonth: daysInMonth
-    }
+    };
 }();
 $(document).ready( function () {
     renderCalendarGrid();
@@ -115,10 +115,10 @@ function renderDaysOfMonth(month, year) {
             year = d3Calendar.yearToDisplay();
             day = d[0];
             if (d[1] === '#EAEAEA') {
-                month = d3Calendar.monthToDisplay + 1;
+                month = d3Calendar.monthToDisplay();
                 window.location = '/history/' + year + '/' + month + '/' + day + '?from=calendar';
             } else {
-                month = d3Calendar.monthToDisplay + 1;
+                month = d3Calendar.monthToDisplay() + 1;
                 window.location = '/history/' + year + '/' + month + '/' + day + '?from=calendar';
             }
         });
@@ -130,10 +130,10 @@ function renderDaysOfMonth(month, year) {
             year = d3Calendar.yearToDisplay();
             day = d[0];
             if (d[1] === '#EAEAEA') {
-                month = d3Calendar.monthToDisplay + 1;
+                month = d3Calendar.monthToDisplay();
                 window.location = '/history/' + year + '/' + month + '/' + day + '?from=calendar';
             } else {
-                month = d3Calendar.monthToDisplay + 1;
+                month = d3Calendar.monthToDisplay() + 1;
                 window.location = '/history/' + year + '/' + month + '/' + day + '?from=calendar';
             }
         });
