@@ -33,25 +33,50 @@ exports.get_stats = function(req, res) {
 
 exports.get_usage = function(req, res) {
     console.log("get usage request for " + req.params.duration);
-    var tasks = [
+    var duration = req.params.duration;
+    var high = new Date();
+    var low = new Date();
+    low.setDate(high.getDate() - duration);
+    /*
         {
             name: 'Clean House',
             minutes: Math.random()*100,
             color: '#F38630'
-        },
-        {
-            name: 'CS147',
-            minutes: Math.random()*400,
-            color: '#E0E4CC'
-        },
-        {
-            name: 'Feed Cat',
-            minutes: Math.random()*200,
-            color: '#69D2E7'
         }
-    ];
-
-    res.json(tasks);
+   */
+    models.Record
+        .find({
+            'user': req.session.username,
+            'from': {$lt: high, $gte: low}
+        })
+        .exec(function(err, records) {
+            if (err) console.log(err);
+            var num_records = records.length;
+            var names = {};
+            for (var i = 0; i < num_records; i++) {
+                if (records[i].task in names) {
+                    names[records[i].task].minutes += (records[i].to - records[i].from) / 1000 / 60;
+                } else {
+                    names[records[i].task] = {};
+                    names[records[i].task].name = records[i].task;
+                    names[records[i].task].minutes = (records[i].to - records[i].from) / 1000 / 60;
+                    names[records[i].task].color = getRandomColor();
+                }
+            }
+            var arr = [];
+            for (var n in names) {
+                arr.push(names[n]);
+            }
+            res.json(arr);
+        });
+    function getRandomColor() {
+        var letters = '0123456789ABCDEF'.split('');
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.round(Math.random() * 15)];
+        }
+        return color;
+    }
 };
 
 exports.get_trend = function(req, res) {
