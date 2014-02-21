@@ -3,22 +3,24 @@
   "description": "Beware of your time.",
   "version": "0.0.1",
   "author": "Wei Wei <wwei2@stanford.edu>",
-  "contributors": ["Kavin Yao <jwyao@stanford.edu>", "Grant Delgado <grantdel@stanford.edu>"],
-
+  "contributors": [
+    "Kavin Yao <jwyao@stanford.edu>",
+    "Grant Delgado <grantdel@stanford.edu>"
+  ],
   "repository": {
-  	"type": "git",
-  	"url": "https://github.com/weiweicse/CS147-Time"
+    "type": "git",
+    "url": "https://github.com/weiweicse/CS147-Time"
   },
   "license": "MIT",
-
   "main": "server.js",
   "dependencies": {
     "express": "3.x",
     "jade": "1.1.x",
-	"mongodb": "*",
-	"mongoose": "*"
+    "mongodb": "*",
+    "mongoose": "*",
+    "connect-mongo": "~0.4.0"
   },
   "engines": {
-  	"node": "0.10.x"
+    "node": "0.10.x"
   }
 }
