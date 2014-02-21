@@ -21,7 +21,6 @@ exports.get_stats = function(req, res) {
             var record = records[i];
             starttime = Math.min(record.from, starttime);
             sum += (record.to - record.from) / 1000 / 60 / 60;
-            console.log(sum);
         }
         res.json({
             "days": Math.round((new Date().valueOf() - starttime) / 1000 / 60 / 60 / 24),
