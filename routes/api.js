@@ -26,7 +26,7 @@ exports.get_stats = function(req, res) {
         res.json({
             "days": Math.round((new Date().valueOf() - starttime) / 1000 / 60 / 60 / 24),
             "tasks": cnt,
-            "hours": sum
+            "hours": Math.round(sum)
         });
     });
 };

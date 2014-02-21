@@ -110,12 +110,33 @@ function renderDaysOfMonth(month, year) {
         .attr("dx", 20) // right padding
         .attr("dy", 20) // vertical alignment : middle
         .attr("transform", "translate(" + d3Calendar.gridXTranslation + "," + d3Calendar.gridYTranslation + ")")
-        .text(function (d) { return d[0]; }); // render text for the day of the week
-        d3Calendar.calendar
+        .text(function (d) { return d[0]; }) // render text for the day of the week
+        .on("click", function(d) {
+            year = d3Calendar.yearToDisplay();
+            day = d[0];
+            if (d[1] === '#EAEAEA') {
+                month = d3Calendar.monthToDisplay + 1;
+                window.location = '/history/' + year + '/' + month + '/' + day + '?from=calendar';
+            } else {
+                month = d3Calendar.monthToDisplay + 1;
+                window.location = '/history/' + year + '/' + month + '/' + day + '?from=calendar';
+            }
+        });
+    d3Calendar.calendar
         .selectAll("rect")
         .data(daysInMonthToDisplay)
         .style("fill", function() { return color(Math.floor(Math.random() * 20)); }) // function (d) { return d[1]; })
-        .on("click", function() { window.location = "/history/2014/02/19?from=calendar"; });
+        .on("click", function(d) {
+            year = d3Calendar.yearToDisplay();
+            day = d[0];
+            if (d[1] === '#EAEAEA') {
+                month = d3Calendar.monthToDisplay + 1;
+                window.location = '/history/' + year + '/' + month + '/' + day + '?from=calendar';
+            } else {
+                month = d3Calendar.monthToDisplay + 1;
+                window.location = '/history/' + year + '/' + month + '/' + day + '?from=calendar';
+            }
+        });
 }
 
 function drawGraphsForMonthlyData() {
@@ -134,6 +155,8 @@ function renderCalendarGrid(month, year) {
     var cellPositions = d3Calendar.gridCellPositions;
     var daysOfTheWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     var daysInMonthToDisplay = d3Calendar.daysInMonth();
+    console.log("#####");
+    console.log(daysInMonthToDisplay);
     d3Calendar.calendar.selectAll("rect")
     .data(cellPositions)
     .enter()
