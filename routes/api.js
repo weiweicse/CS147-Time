@@ -147,6 +147,68 @@ exports.get_history_next = function(req, res) {
     });
 };
 
+exports.get_today = function(req, res) {
+    var now = new Date();
+    var low = new Date();
+    low.setHours(0);
+    low.setMinutes(0);
+    low.setSeconds(0);
+    var high = new Date();
+    high.setHours(22);
+    high.setMinutes(0);
+    high.setSeconds(0);
+    models.Record
+        .find({
+            user: req.session.username,
+            from: {$lt: high, $gte: low}
+        })
+        .exec(function(err, records) {
+            if (err) console.log(err);
+            // sort the records
+            records.sort(function(a, b) {
+                return new Date(a.from) > new Date(b.from);
+            });
+            // get intervals
+            num_records = records.length;
+            var begin = new Date();
+            begin.setHours(8);
+            begin.setMinutes(0);
+            begin.setSeconds(0);
+            var total = high - begin;
+            console.log("total", total);
+            var intervals = [];
+            for (var i = 0; i < num_records && begin < high; i++) {
+                if (records[i].from > begin) {
+                    intervals.push({
+                        name: null,
+                        percentage: (records[i].from - begin) / total
+                    });
+                    intervals.push({
+                        name: records[i].task,
+                        percentage: (Math.min(records[i].to, high) - records[i].from) / total
+                    });
+                    begin = records[i].to;
+                } else if (records[i].to > begin) {
+                    console.log(records[i]);
+                    console.log(begin);
+                    intervals.push({
+                        name: records[i].task,
+                        percentage: (records[i].to - begin) / total
+                    });
+                    begin = records[i].to;
+                }
+            }
+            if (begin < high) {
+                intervals.push({
+                    name: null,
+                    percentage: (high - begin) / total
+                });
+            }
+            console.log("records", records);
+            console.log("intervals", intervals);
+        });
+};
+
 exports.add_record = function(req, res) {
     // just return success
     // TODO: interact with mongodb

@@ -68,6 +68,7 @@ app.get('/api/trend', api.get_trend);
 app.get('/api/calendar/:year/:month', api.get_calendar);
 app.get('/api/history', api.get_history);
 app.get('/api/history/prev', api.get_history_prev);
+app.get('/api/today', api.get_today);
 app.get('/api/history/next', api.get_history_next);
 app.post('/api/record/add', api.add_record);
 app.post('/api/record/update', core.update_record);
