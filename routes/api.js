@@ -52,6 +52,7 @@ exports.get_usage = function(req, res) {
         .exec(function(err, records) {
             if (err) console.log(err);
             var num_records = records.length;
+            console.log("number of records: " + num_records);
             var names = {};
             for (var i = 0; i < num_records; i++) {
                 if (records[i].task in names) {
@@ -63,10 +64,12 @@ exports.get_usage = function(req, res) {
                     names[records[i].task].color = getRandomColor();
                 }
             }
+            console.log(names);
             var arr = [];
             for (var n in names) {
                 arr.push(names[n]);
             }
+            console.log(arr);
             res.json(arr);
         });
     function getRandomColor() {

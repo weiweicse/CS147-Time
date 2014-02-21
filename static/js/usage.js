@@ -32,12 +32,15 @@ $(function() {
     };
 
     function updateGraph(tasks) {
+        console.log(tasks);
         var data = tasks.map(function(t) {
             return {
                 value: t.minutes,
                 color: t.color
             };
         });
+        console.log('after');
+        console.log(data);
 
         var width = $chart.closest('.container').width();
         $chart.attr('width', width).attr('height', width);
@@ -64,9 +67,20 @@ $(function() {
 
         $active_item.removeClass('active');
         $(this).closest('div').addClass('active');
+        var duration = 1;
+        if ($(this).hasClass('day')) {
+            duration = 1;
+        } else if ($(this).hasClass('week')) {
+            duration = 7;
+        } else if ($(this).hasClass('month')) {
+            duration = 30;
+        }
 
-        var tasks = getTasks();
-        updateGraph(tasks);
+        // use json api to populate data
+        $.get('/api/usage/by/' + duration, function(data) {
+            console.log('data:\n' + data);
+            updateGraph(data);
+        });
     });
 
     // manually trigger a click to show daily view
