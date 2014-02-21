@@ -6,6 +6,7 @@ body {
   top: 0;
   left: 0;
   right: 0;
+  z-index: 1000;
   height: 60px;
   padding-top: 25px;
   color: white;
@@ -38,6 +39,8 @@ body {
     border: 1px solid #5abedb;
     border-left: none;
     padding: 3px 0; }
+    #view-toggler > div span {
+      display: block; }
     #view-toggler > div:last-child {
       border-right: none; }
     #view-toggler > div.active {

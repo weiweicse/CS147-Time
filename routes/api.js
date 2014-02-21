@@ -10,7 +10,7 @@ exports.get_stats = function(req, res) {
     var json = {};
 
     var promise = models.Record
-        .find()
+        .find({user: req.session.username})
         .exec();
 
     promise.addBack(function(err, records) {
@@ -91,6 +91,7 @@ exports.get_trend = function(req, res) {
     console.log(starttime);
     models.Record
         .find({
+            user: req.session.username,
             from: {$gte: starttime}
         })
         .exec(afterFinding);
