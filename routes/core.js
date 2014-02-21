@@ -25,6 +25,12 @@ exports.record = function(req, res) {
     res.render('record');
 };
 
+exports.edit = function(req, res) {
+    res.render('edit', {
+        back_url: req.get('Referer')
+    });
+};
+
 exports.usage = function(req, res) {
     res.render('usage');
 };

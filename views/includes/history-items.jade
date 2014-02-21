@@ -13,4 +13,6 @@ for item in items
                         td.col-xs-7 #{event.start} - #{event.end}
                         td.col-xs-5
                             = event.name
-                            +badge-icon('edit')
+                            //- TODO: use real id
+                            a(href='/edit/123456')
+                                +badge-icon('edit')

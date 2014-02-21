@@ -4,14 +4,14 @@ html
         title Record Time Usage - VisualTime
         meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0')
         include includes/stylesheets
-        link(href='css/record.css', rel='stylesheet', type='text/css')
+        link(href='/css/record.css', rel='stylesheet', type='text/css')
 
     body
         include mixins/menubar
-        +menubar('Record', '/', 'chevron-left', '', '')
+        +menubar('Edit', back_url, 'chevron-left', '', '')
 
         .container
-            h1 Record Time Usage
+            h1 Edit Time Usage
 
             form(role='form', action='.')
                 .form-group
@@ -28,9 +28,12 @@ html
 
                 .button-holder
                     a.record-button(href='#')
-                        button.btn.btn-success.btn-lg.btn-block(type='button') Save
-                    a(href='/')
+                        button.btn.btn-success.btn-lg.btn-block(type='button') Update
+                    a(href=back_url)
                         button.btn.btn-warning.btn-lg.btn-block(type='button') Cancel
+                    hr
+                    form(action='/delete/123456', method='post')
+                        button.btn.btn-danger.btn-lg.btn-block(type='submit') Delete
 
         include includes/scripts
         script(src='js/record.js')
