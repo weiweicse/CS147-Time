@@ -18,7 +18,7 @@ exports.logout = function(req, res) {
 exports.home = function(req, res) {
     if (!req.session.username)
         res.redirect('/login');
-    console.log("home");
+
     var high = new Date();
     var low = new Date();
     low.setDate(high.getDate() - 5);
@@ -26,38 +26,12 @@ exports.home = function(req, res) {
     low.setMinutes(0);
     low.setSeconds(0);
     models.Record
-        .find({'from': {$lt: high, $gte: low}})
+        .find({
+            'user': req.session.username,
+            'from': {$lt: high, $gte: low}
+        })
         .exec(function(err, records) {
-            var num_records = records.length;
-            var dates = {};
-            for (var d = low; d < high; d.setDate(d.getDate() + 1)) {
-                dates[d] = [];
-            }
-            console.log(dates);
-            for (var i = 0; i < num_records; i++) {
-                var record = records[i];
-                var from = record.from;
-                from.setHours(0);
-                from.setMinutes(0);
-                from.setSeconds(0);
-                dates[from].push({
-                    id: record._id,
-                    name: record.task,
-                    start: record.from,
-                    end: record.to
-                });
-            }
-            lists = [];
-            console.log(lists);
-            for (var date in dates) {
-                lists.push({
-                    date: date,
-                    events: dates[date]
-                });
-            }
-            lists.sort(function(a, b) {
-                return new Date(a.date) < new Date(b.date);
-            });
+            var lists = populateRecords(records, low, high);
             res.render('home', {
                 user: {
                     name: req.session.username
@@ -67,6 +41,62 @@ exports.home = function(req, res) {
             });
         });
 };
+
+function pad(i) {
+    return i < 10 ? '0'+i : i;
+}
+
+function normalizeDate(date) {
+    return [date.getFullYear(), date.getMonth()+1, date.getDate()].map(pad).join('-');
+}
+
+function normalizeTime(date) {
+    var hour = date.getHours()+1;
+    var ampm = hour >= 12 ? 'PM' : 'AM';
+    hour = hour % 12;
+    hour = hour === 0 ? 12 : hour;
+    return [hour, date.getMinutes()+1].map(pad).join(':') + ampm;
+}
+
+function populateRecords(records, low, high) {
+    var num_records = records.length;
+    var dates = {};
+
+    for (var d = low; d < high; d.setDate(d.getDate() + 1)) {
+        dates[d] = [];
+    }
+
+    for (var i = 0; i < num_records; i++) {
+        var record = records[i];
+        // use date at 00:00:00 as key
+        var from = new Date(record.from);
+        from.setHours(0);
+        from.setMinutes(0);
+        from.setSeconds(0);
+
+        dates[from].push({
+            id: record._id,
+            name: record.task,
+            start: normalizeTime(record.from),
+            end: normalizeTime(record.to)
+        });
+    }
+
+    var lists = [];
+
+    for (var date in dates) {
+        lists.push({
+            date: normalizeDate(new Date(date)),
+            events: dates[date]
+        });
+    }
+
+    lists.sort(function(a, b) {
+        return new Date(a.date) < new Date(b.date);
+    });
+
+    return lists;
+}
 
 exports.nav = function(req, res) {
     res.render('nav');
@@ -90,13 +120,19 @@ exports.record = function(req, res) {
 
 exports.edit = function(req, res) {
     var id = req.params.id;
+    var back_url = req.get('Referer');
+    // TODO: remove hack
+    var lidx = back_url.lastIndexOf('?');
+    if (lidx > -1)
+        back_url = back_url.substring(0, lidx);
+
     models.Record
-        .find({"_id": id})
+        .findOne({"_id": id})
         .exec(function(err, record) {
             var from = record.from;
             var to = record.to;
             res.render('edit', {
-                back_url: req.get('Referer')
+                back_url: back_url
             });
         });
 };
@@ -130,36 +166,6 @@ exports.trend = function(req, res) {
     res.render('trend');
 };
 
-function toInt(s) {
-    return parseInt(s, 10);
-}
-
-function toStr(i) {
-    return i < 10 ? '0'+i : i;
-}
-
-function previousDates(d, n) {
-    var parts = d.split('-').map(toInt);
-    var dates = [];
-    while (n--) {
-        parts[2] -= 1;
-
-        if (parts[2] === 0) {
-            parts[2] = 31;
-            parts[1] -= 1;
-
-            if (parts[1] === 0) {
-                parts[1] = 12;
-                parts[0] -= 1;
-            }
-        }
-
-        dates.push(parts.map(toStr).join('-'));
-    }
-
-    return dates;
-}
-
 exports.history_prev = function(req, res) {
     var last_date = req.query.date;
     console.log(last_date);
@@ -170,41 +176,17 @@ exports.history_prev = function(req, res) {
     low.setMinutes(0);
     low.setSeconds(0);
     models.Record
-        .find({'from': {$lt: high, $gte: low}})
+        .find({
+            'user': req.session.username,
+            'from': {$lt: high, $gte: low}
+        })
         .exec(function(err, records) {
-            var num_records = records.length;
-            var dates = {};
-            for (var d = low; d < high; d.setDate(d.getDate() + 1)) {
-                dates[d] = [];
-            }
-            for (var i = 0; i < num_records; i++) {
-                var record = records[i];
-                var from = record.from;
-                from.setHours(0);
-                from.setMinutes(0);
-                from.setSeconds(0);
-                console.log("id " + record._id);
-                dates[from].push({
-                    id: record._id,
-                    name: record.task,
-                    start: record.from,
-                    end: record.to
-                });
-            }
-            lists = [];
-            for (var date in dates) {
-                lists.push({
-                    date: date,
-                    events: dates[date]
-                });
-            }
+            var lists = populateRecords(records, low, high);
             lists.sort(function(a, b) {
                 return new Date(a.date) < new Date(b.date);
             });
-            console.log("print lists");
-            console.log(lists);
             res.render('includes/history-items', {
-                items: lists,
+                items: lists
             });
         });
 };
@@ -212,45 +194,16 @@ exports.history_prev = function(req, res) {
 exports.history_day = function(req, res) {
     var parts = [req.params.year, req.params.month, req.params.day];
     var last_date = parts.join('-');
-    var high = new Date(last_date);
-    var low = new Date();
-    low.setDate(high.getDate());
-    low.setHours(0);
-    low.setMinutes(0);
-    low.setSeconds(0);
-    high.setDate(low.getDate() + 1);
+    var high = new Date(last_date + ' 23:59:59');
+    var low = new Date(last_date + ' 00:00:00');
+
     models.Record
-    .find({'from': {$lt: high, $gte: low}})
+    .find({
+        'user': req.session.username,
+        'from': {$lt: high, $gte: low}
+    })
     .exec(function(err, records) {
-        if (err) console.log(err);
-        var num_records = records.length;
-        var dates = {};
-        for (var d = low; d < high; d.setDate(d.getDate() + 1)) {
-            dates[d] = [];
-        }
-        console.log(dates);
-        for (var i = 0; i < num_records; i++) {
-            var record = records[i];
-            var from = record.from;
-            from.setHours(0);
-            from.setMinutes(0);
-            from.setSeconds(0);
-            console.log("id:" + record._id);
-            dates[from].push({
-                id: record._id,
-                name: record.task,
-                start: record.from,
-                end: record.to
-            });
-        }
-        lists = [];
-        console.log(lists);
-        for (var date in dates) {
-            lists.push({
-                date: date,
-                events: dates[date]
-            });
-        }
+        var lists = populateRecords(records, low, high);
         res.render('history-day', {
             date: last_date,
             back_url: req.get('Referer'),

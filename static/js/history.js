@@ -20,9 +20,15 @@ $(function() {
         $.get('/history/prev', {
             date: date
         }).done(function(html) {
-            $items.append(html);
-            $load_buttom.removeClass('disabled').text('Load More');
-            is_loading = false;
+            if (!html.trim()) {
+                // empty => no more items
+                // TODO: more robust no more date detection
+                $load_buttom.text('No more data.');
+            } else {
+                $items.append(html);
+                $load_buttom.removeClass('disabled').text('Load More');
+                is_loading = false;
+            }
         }).error(function() {
             $load_buttom.addClass('btn-danger').text("Something's wrong. Please refresh.");
         });
