@@ -13,7 +13,7 @@ html
         .container
             h1 Record Time Usage
 
-            form(role='form', action='.')
+            form(role='form', action='/record/add', method='POST')
                 .form-group
                     label(for='task-name-input') Task Name
                     input#task-name-input.form-control(type='text', placeholder='Enter task name')

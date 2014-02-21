@@ -1,3 +1,5 @@
+var models = require('../models');
+
 exports.home = function(req, res) {
     res.render('home', {
         user: {
@@ -20,6 +22,27 @@ exports.calendar = function(req, res) {
 
 exports.record = function(req, res) {
     res.render('record');
+};
+
+exports.add_record = function(req, res) {
+    var form_data = req.body;
+    console.log("form data");
+    console.log(form_data);
+    var record = new models.Record({
+        'task': form_data.task,
+        'from': form_data.from,
+        'to': form_data.to,
+        'user': form_data.user
+    });
+    record.save(afterSaving);
+
+    function afterSaving(err) {
+        if (err) {
+            console.log(err);
+            res.send(500);
+        }
+        res.redirect('/');
+    }
 };
 
 exports.usage = function(req, res) {

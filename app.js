@@ -27,6 +27,10 @@ var app = express();
 app.use(express.logger());
 app.use(express.compress());
 app.set('view engine', 'jade');
+app.use(express.json());
+app.use(express.urlencoded());
+app.use(express.methodOverride());
+
 
 // Return all pages in the /static directory
 // whenever they are requested at '/'
@@ -44,6 +48,7 @@ app.get('/nav', core.nav);
 app.get('/statistics', core.statistics);
 app.get('/calendar', core.calendar);
 app.get('/trend', core.trend);
+app.post('/record/add', core.add_record);
 
 // Add api routes
 app.get('/api/user', api.get_user_info);
