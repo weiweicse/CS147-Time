@@ -43,7 +43,11 @@ exports.calendar = function(req, res) {
 };
 
 exports.record = function(req, res) {
-    res.render('record');
+    var is_mobile = /mobile/i.test(req.header('user-agent'));
+    res.render('record', {
+        is_mobile: is_mobile,
+        browser_class: is_mobile ? 'mobile' : 'desktop'
+    });
 };
 
 exports.edit = function(req, res) {

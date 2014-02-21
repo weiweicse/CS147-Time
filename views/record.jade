@@ -5,8 +5,11 @@ html
         meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0')
         include includes/stylesheets
         link(href='css/record.css', rel='stylesheet', type='text/css')
+        if !is_mobile
+            link(href='//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css', rel='stylesheet', type='text/css')
+            link(href='/css/jquery-ui-timepicker-addon.css', rel='stylesheet', type='text/css')
 
-    body
+    body(data-browser=browser_class)
         include mixins/menubar
         +menubar('Record', '/', 'chevron-left', '', '')
 
@@ -19,10 +22,16 @@ html
                     input#task-name-input.form-control(type='text', placeholder='Enter task name')
                 .form-group
                     label(for='start-time-input') Start Time
-                    input#start-time-input.form-control(type='datetime-local', placeholder='Click to enter')
+                    if is_mobile
+                        input#start-time-input.form-control(type='datetime-local', placeholder='Click to enter')
+                    else
+                        input#start-time-input.form-control(placeholder='Click to enter')
                 .form-group
                     label(for='end-time-input') End Time
-                    input#end-time-input.form-control(type='datetime-local', placeholder='Click to enter')
+                    if is_mobile
+                        input#end-time-input.form-control(type='datetime-local', placeholder='Click to enter')
+                    else
+                        input#end-time-input.form-control(placeholder='Click to enter')
 
                 #error-alert.alert.alert-danger(style='display:none;')
 
@@ -33,6 +42,10 @@ html
                         button.btn.btn-warning.btn-lg.btn-block(type='button') Cancel
 
         include includes/scripts
+        if !is_mobile
+            script(src='//code.jquery.com/ui/1.10.4/jquery-ui.js')
+            script(src='/js/jquery-ui-timepicker-addon.js')
+        //- should put after datepicker
         script(src='js/record.js')
 
         include mixins/help
