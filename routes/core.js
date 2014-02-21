@@ -203,6 +203,12 @@ exports.add_record = function(req, res) {
     var form_data = req.body;
     console.log("form data");
     console.log(form_data);
+
+    if (!req.session.username || !form_data.task || !form_data.from || !form_data.to) {
+        res.send(400);
+        return;
+    }
+
     var data = {
         'task': form_data.task,
         'from': form_data.from,
