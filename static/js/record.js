@@ -76,7 +76,18 @@ $(function() {
             }
         }
 
-        if (!error)
-            window.location = '/?success';
+        if (!error) {
+            console.log('submit form');
+            var json = {
+                'task': $name.val(),
+                'from': $start.val(),
+                'to': $end.val(),
+                'user': 'John'
+            };
+            $.post('/record/add', json, function() {
+                console.log("success");
+                window.location.href = '/?success';
+            });
+        }
     });
 });
