@@ -15,7 +15,7 @@ $(function() {
         }, 2000);
     }
 
-    $.get('http://localhost:3000/api/today', function(data) {
+    $.get('/api/today', function(data) {
         var html = "";
         var num = data.length;
         for (var i = 0; i < num; i++) {
