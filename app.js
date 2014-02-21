@@ -20,6 +20,8 @@ var app = express();
 app.use(express.logger());
 app.use(express.compress());
 app.set('view engine', 'jade');
+app.use(express.cookieParser('your secret here'));
+app.use(express.session());
 
 // Return all pages in the /static directory
 // whenever they are requested at '/'
@@ -29,6 +31,8 @@ app.use(express.static(__dirname + '/static'));
 
 // Add page routes
 app.get('/', core.home);
+app.get('/login', core.login);
+app.get('/logout', core.logout);
 app.get('/record', core.record);
 app.get('/edit/:id', core.edit);
 app.get('/usage', core.usage);

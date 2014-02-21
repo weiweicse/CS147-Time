@@ -1,8 +1,27 @@
+exports.login = function(req, res) {
+    console.log(req.query.name);
+    if (!req.query.name) {
+        res.render('login');
+        return;
+    }
+    req.session.username = req.query.name;
+    res.redirect('/');
+};
+
+exports.logout = function(req, res) {
+    req.session.username = '';
+    res.redirect('/login');
+};
+
 exports.home = function(req, res) {
+    // TOOD: refactor login to a decorator
+    if (!req.session.username)
+        res.redirect('/login');
+
     var dates = ['2014-02-13', '2014-02-12', '2014-02-11', '2014-02-10'];
     res.render('home', {
         user: {
-            name: 'John'
+            name: req.session.username
         },
         items: randomEvents(dates),
         from: req.query.from

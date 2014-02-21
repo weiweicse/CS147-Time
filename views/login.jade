@@ -1,0 +1,22 @@
+doctype html
+html
+    head
+        title VisualTime
+        meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0')
+        include includes/stylesheets
+        link(href='css/login.css', rel='stylesheet', type='text/css')
+
+    body
+        .container
+            h1 VisualTime
+
+            form(role='form', action='/login')
+                .form-group
+                    label(for='username-input') What's your name?
+                    input#username-input.form-control(name='name', type='text', placeholder='Example: John')
+                button.btn.btn-success.btn-lg.btn-block(type='submit') Log In
+
+        include includes/scripts
+
+        include mixins/help
+        +help("Just enter your preferred user name and log in.")
