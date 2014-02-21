@@ -10,16 +10,31 @@ html
         +menubar('Statistics', '/nav', 'chevron-left', '', '')
 
         .container
+            h3
+                | Hi 
+                = username
+                | , you've used VisualTime for
             ul.list-group
                 li.list-group-item
                     span#days 123
                     | Days
+
+            h3
+                | recorded
+            ul.list-group
                 li.list-group-item
                     span#tasks 256
-                    | Tasks
+                    | Activities
+
+            h3
+                | focused for
+            ul.list-group
                 li.list-group-item
                     span#hours 1973
                     | Hours
+
+            h3
+                | Good job! Keep going.
 
         include includes/scripts
         script(src='js/statistics.js', type='text/javascript')

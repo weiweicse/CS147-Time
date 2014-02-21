@@ -6,6 +6,7 @@ body {
   top: 0;
   left: 0;
   right: 0;
+  z-index: 1000;
   height: 60px;
   padding-top: 25px;
   color: white;
@@ -28,14 +29,10 @@ body {
     #menu-bar .wrapper a, #menu-bar .wrapper a:link, #menu-bar .wrapper a:visited, #menu-bar .wrapper a:hover, #menu-bar .wrapper a:active {
       color: inherit; }
 
-ul {
-  margin-top: 3em; }
-
-ul span {
-  font-size: 2em; }
+h3:first-child {
+  margin-top: 0; }
 
 li {
-  margin-top: 1em;
   color: #5abedb;
   font-size: 2em;
   text-align: center; }

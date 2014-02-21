@@ -103,7 +103,9 @@ exports.nav = function(req, res) {
 };
 
 exports.statistics = function(req, res) {
-    res.render('statistics');
+    res.render('statistics', {
+        username: req.session.username
+    });
 };
 
 exports.calendar = function(req, res) {
