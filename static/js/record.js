@@ -1,4 +1,7 @@
 $(function() {
+    // browser class detection
+    var is_mobile = $('body').data('browser') === 'mobile';
+
     var $error_alert = $('#error-alert');
     var $name = $('#task-name-input');
     var $start = $('#start-time-input');
@@ -33,13 +36,27 @@ $(function() {
 
     // auto-fill start date
     var now = new Date();
-    $start.val(dateToInputValue(now));
+    if (is_mobile)
+        $start.val(dateToInputValue(now));
+    else {
+        $start.datetimepicker({
+            onClose: function(dateText, inst) {
+                if ($start.val() && !$end.val())
+                    $end.val(dateText);
+            }
+        });
+        $end.datetimepicker();
 
-    // fill default value of end for better usability
-    $end.on('focus', function() {
-        if ($start.val() && !$end.val())
-            $end.val($start.val());
-    });
+        $start.datetimepicker('setDate', now);
+    }
+
+    if (is_mobile) {
+        // fill default value of end for better usability
+        $end.on('focus', function(e) {
+            if ($start.val() && !$end.val())
+                $end.val($start.val());
+        });
+    }
 
     /*
      * Note: set a.record-button(href='/?success') and preventDefault
@@ -77,13 +94,17 @@ $(function() {
         }
 
         if (!error) {
-            console.log('submit form');
             var json = {
                 'task': $name.val(),
                 'from': $start.val(),
-                'to': $end.val(),
-                'user': 'John'
+                'to': $end.val()
             };
+
+            if (!is_mobile) {
+                json.from = $start.datetimepicker('getDate');
+                json.to = $end.datetimepicker('getDate');
+            }
+
             $.post('/record/add', json, function() {
                 console.log("success");
                 window.location.href = '/?success';

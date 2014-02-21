@@ -9,6 +9,7 @@ var PORT = 3000;
 // that makes nontrivial applications easier to build
 var express = require('express');
 var mongoose = require('mongoose');
+var MongoStore = require('connect-mongo')(express);
 
 // connect to the Mongo database, whether locally or on Heroku
 var local_database_name = 'record';
@@ -27,10 +28,15 @@ var app = express();
 app.use(express.logger());
 app.use(express.compress());
 app.set('view engine', 'jade');
+app.use(express.cookieParser('V1SUALT1M3'));
+app.use(express.session({
+    store: new MongoStore({
+        url: database_uri
+    })
+}));
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
-
 
 // Return all pages in the /static directory
 // whenever they are requested at '/'
@@ -40,6 +46,8 @@ app.use(express.static(__dirname + '/static'));
 
 // Add page routes
 app.get('/', core.home);
+app.get('/login', core.login);
+app.get('/logout', core.logout);
 app.get('/record', core.record);
 app.get('/edit/:id', core.edit);
 app.get('/usage', core.usage);

@@ -1,6 +1,23 @@
 var models = require('../models');
 
+exports.login = function(req, res) {
+    console.log(req.query.name);
+    if (!req.query.name) {
+        res.render('login');
+        return;
+    }
+    req.session.username = req.query.name;
+    res.redirect('/');
+};
+
+exports.logout = function(req, res) {
+    req.session.username = '';
+    res.redirect('/login');
+};
+
 exports.home = function(req, res) {
+    if (!req.session.username)
+        res.redirect('/login');
     console.log("home");
     var high = new Date();
     var low = new Date();
@@ -43,7 +60,7 @@ exports.home = function(req, res) {
             });
             res.render('home', {
                 user: {
-                    name: 'John'
+                    name: req.session.username
                 },
                 items: lists,
                 from: req.query.from
@@ -64,7 +81,11 @@ exports.calendar = function(req, res) {
 };
 
 exports.record = function(req, res) {
-    res.render('record');
+    var is_mobile = /mobile/i.test(req.header('user-agent'));
+    res.render('record', {
+        is_mobile: is_mobile,
+        browser_class: is_mobile ? 'mobile' : 'desktop'
+    });
 };
 
 exports.edit = function(req, res) {
@@ -88,7 +109,7 @@ exports.add_record = function(req, res) {
         'task': form_data.task,
         'from': form_data.from,
         'to': form_data.to,
-        'user': form_data.user
+        'user': req.session.username
     });
     record.save(afterSaving);
 
