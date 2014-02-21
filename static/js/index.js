@@ -15,6 +15,17 @@ $(function() {
         }, 2000);
     }
 
+    $.get('http://localhost:3000/api/today', function(data) {
+        var html = "";
+        var num = data.length;
+        for (var i = 0; i < num; i++) {
+            //console.log(data[i].per
+            html += '<div role="progressbar" style="width: ' + data[i].percentage * 100 + '%;" class="progress-bar progress-bar-' + ((data[i].name === null) ? 'empty' : 'success') + '"></div>';
+        }
+        console.log(html);
+        $(".progress").html(html);
+    });
+
     // Time update
     var $greeting = $('.greeting');
     

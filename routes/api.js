@@ -206,6 +206,7 @@ exports.get_today = function(req, res) {
             }
             console.log("records", records);
             console.log("intervals", intervals);
+            res.json(intervals);
         });
 };
 
