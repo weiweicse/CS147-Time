@@ -2,7 +2,7 @@ var models = require('../models');
 
 exports.get_user_info = function(req, res) {
     res.json({
-        name: 'John'
+        name: req.session.username
     });
 };
 

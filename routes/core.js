@@ -64,7 +64,7 @@ exports.add_record = function(req, res) {
         'task': form_data.task,
         'from': form_data.from,
         'to': form_data.to,
-        'user': form_data.user
+        'user': req.session.username
     });
     record.save(afterSaving);
 

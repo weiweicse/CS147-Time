@@ -97,8 +97,7 @@ $(function() {
             var json = {
                 'task': $name.val(),
                 'from': $start.val(),
-                'to': $end.val(),
-                'user': 'John'
+                'to': $end.val()
             };
 
             if (!is_mobile) {
