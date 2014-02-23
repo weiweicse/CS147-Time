@@ -124,11 +124,55 @@ exports.get_trend = function(req, res) {
 };
 
 exports.get_calendar = function(req, res) {
-    var values = [], i;
-    for (i = 0;i < 35;++i)
-        values.push(Math.floor(Math.random() * 5));
+    var i;
+    var year = req.params.year;
+    var month = req.params.month;
+    var daysArray = [];
+    var firstDayOfTheWeek = new Date(year, month, 1).getDay();
+    var daysInPreviousMonth = new Date(year, month, 0).getDate();
+    var cnt = 0;
+    for (i = 1; i <= firstDayOfTheWeek; i++) {
+        daysArray.push(new Date(year, month - 1, daysInPreviousMonth - firstDayOfTheWeek + i));
+        cnt++;
+    }
+    var daysInMonth = new Date(year, month, 0).getDate();
+    for (i = 1; i <= daysInMonth; i++) {
+        daysArray.push(new Date(year, month, i));
+        cnt++;
+    }
+    var daysRequiredFromNextMonth = 35 - cnt;
+    for (i = 1; i <= daysRequiredFromNextMonth; i++) {
+        daysArray.push(new Date(year, month + 1, i));
+    }
+    daysArray = daysArray.slice(0, 35);
+    var low = daysArray[0];
+    var high = daysArray[34];
+    var intensity = {};
+    for (i = 0; i < daysArray.length; i++) {
+        intensity[daysArray[i]] = 0;
+    }
+    models.Record
+        .find({user: req.session.username, from: {$lte: high, $gte: low}})
+        .exec(function(err, records) {
+            if (err) console.log(err);
+            var num_records = records.length;
+            var date;
+            console.log("length: " + num_records);
+            for (i = 0; i < num_records; i++) {
+                date = records[i].from;
+                date.setHours(0);
+                date.setMinutes(0);
+                date.setSeconds(0);
+                intensity[date] += 1;
+                console.log(intensity[date]);
+            }
+            var ret = [];
+            for (i = 0; i < daysArray.length; i++) {
+                ret.push(intensity[daysArray[i]]);
+            }
+            res.json(ret);
+        });
 
-    res.json(values);
 };
 
 exports.get_history = function(req, res) {
