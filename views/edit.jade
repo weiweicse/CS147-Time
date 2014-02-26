@@ -43,7 +43,7 @@ html
                     a.cancel-button(href=back_url)
                         button.btn.btn-warning.btn-lg.btn-block(type='button') Cancel
             hr
-            form(action='/record/delete/#{id}', method='post')
+            form.deletion-form(action='/record/delete/#{id}', method='post')
                 button.delete-button.btn.btn-danger.btn-lg.btn-block(type='submit') Delete
 
         include includes/scripts
