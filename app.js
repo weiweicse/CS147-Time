@@ -28,8 +28,13 @@ var app = express();
 app.use(express.logger());
 app.use(express.compress());
 app.set('view engine', 'jade');
-app.use(express.cookieParser('V1SUALT1M3'));
+app.use(express.cookieParser());
 app.use(express.session({
+    secret: 'V1SUALT1M3',
+    cookie: {
+        // one month
+        maxAge: 30 * 24 * 60 * 60000
+    },
     store: new MongoStore({
         url: database_uri
     })
