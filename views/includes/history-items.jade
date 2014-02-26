@@ -4,7 +4,10 @@ for item in items
     if item.events.length
         .done-list.panel.panel-default(data-date=item.date)
             .panel-heading
-                span= item.date
+                span
+                    = item.date
+                    //- add a space to prevent iOS recognize date as phone number
+                    | &nbsp;
                 span.badge= item.events.length
 
             table.table
