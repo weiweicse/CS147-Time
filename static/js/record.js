@@ -63,7 +63,7 @@ $(function() {
      *       if error === true does not work in web app. So we set
      *       href=# and do manual redirect on success.
      */
-    $('.record-button').click(function(e) {
+    $('form').submit(function(e) {
         e.preventDefault();
 
         var error = false;
