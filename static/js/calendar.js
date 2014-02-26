@@ -82,19 +82,25 @@ var d3Calendar = function() {
 }();
 $(document).ready( function () {
     renderCalendarGrid();
-    renderDaysOfMonth();
+    $.get('/api/calendar/' + d3Calendar.yearToDisplay() + '/' + d3Calendar.monthToDisplay(), function(intensity) {
+        renderDaysOfMonth(intensity);
+    });
     $('#back').click(displayPreviousMonth);
     $('#forward').click(displayNextMonth);
 });
 function displayPreviousMonth() {
     d3Calendar.decrementCounter();
-    renderDaysOfMonth();
+    $.get('/api/calendar/' + d3Calendar.yearToDisplay() + '/' + d3Calendar.monthToDisplay(), function(intensity) {
+        renderDaysOfMonth(intensity);
+    });
 }
 function displayNextMonth() {
     d3Calendar.incrementCounter();
-    renderDaysOfMonth();
+    $.get('/api/calendar/' + d3Calendar.yearToDisplay() + '/' + d3Calendar.monthToDisplay(), function(intensity) {
+        renderDaysOfMonth(intensity);
+    });
 }
-function renderDaysOfMonth(month, year) {
+function renderDaysOfMonth(intensity) {
     $('#currentMonth a').text(d3Calendar.monthToDisplayAsText() + ' ' + d3Calendar.yearToDisplay());
     var daysInMonthToDisplay = d3Calendar.daysInMonth();
     var cellPositions = d3Calendar.gridCellPositions;
@@ -122,10 +128,12 @@ function renderDaysOfMonth(month, year) {
                 window.location = '/history/' + year + '/' + month + '/' + day + '?from=calendar';
             }
         });
+    console.log(intensity);
+    var maxintensity = Math.max.apply(Math, intensity);
     d3Calendar.calendar
         .selectAll("rect")
         .data(daysInMonthToDisplay)
-        .style("fill", function() { return color(Math.floor(Math.random() * 20)); }) // function (d) { return d[1]; })
+        .style("fill", function(d, i) { return color(intensity[i] / maxintensity * 20); }) // function (d) { return d[1]; })
         .on("click", function(d) {
             year = d3Calendar.yearToDisplay();
             day = d[0];
