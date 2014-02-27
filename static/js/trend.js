@@ -47,9 +47,10 @@ function createChart() {
         console.log("ymax: " + ymax);
         var barChart = new Chart(ctx).Bar(data, {
             scaleOverride: true,
-            scaleSteps: 1,
-            scaleStepWidth: Math.ceil(ymax / 1),
-            scaleStartValue: 0
+            scaleSteps: ymax,
+            scaleStepWidth: 1,
+            scaleStartValue: 0,
+            barValueSpacing: 0
         });
     });
 }

@@ -6,6 +6,7 @@ body {
   top: 0;
   left: 0;
   right: 0;
+  z-index: 1000;
   height: 60px;
   padding-top: 25px;
   color: white;
@@ -29,5 +30,5 @@ body {
       color: inherit; }
 
 .canvasWrapper {
-  height: 60%;
-  margin-top: 8em; }
+  height: 80%;
+  margin-top: 2em; }
