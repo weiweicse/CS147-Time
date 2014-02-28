@@ -12,7 +12,7 @@ html
     - var browser_class = is_mobile ? 'mobile' : 'desktop'
     body(data-browser=browser_class)
         include mixins/menubar
-        +menubar('Edit', back_url, 'chevron-left', '', '')
+        +menubar('Edit', back_url, 'chevron-left', '/', 'home')
 
         .container
             h1 Edit Time Usage
