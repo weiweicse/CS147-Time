@@ -2,6 +2,7 @@ $(function() {
     var start = 0;
     var end = 1439;
     var date = new Date();
+    // date picker
     var $input = $('#datepicker').pickadate({
         // auto-fill date
         onStart: function() {
@@ -9,6 +10,7 @@ $(function() {
         }
     });
     var picker = $input.pickadate('picker');
+    // time picker
     $('#timepicker').noUiSlider({
         range: [0, 1439],
         start: [Math.max(0, date.getHours() - 1) * 60 + date.getMinutes(), date.getHours() * 60+ date.getMinutes()],
@@ -16,7 +18,35 @@ $(function() {
         connect: true,
         slide: slide
     });
+    // type ahead
+    // instantiate the bloodhound suggestion engine
+    var numbers = new Bloodhound({
+        datumTokenizer: function(d) { return Bloodhound.tokenizers.whitespace(d.num); },
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        local: [
+            { num: 'one' },
+            { num: 'two' },
+            { num: 'three' },
+            { num: 'four' },
+            { num: 'five' },
+            { num: 'six' },
+            { num: 'seven' },
+            { num: 'eight' },
+            { num: 'nine' },
+            { num: 'ten' }
+        ]
+    });
 
+    // initialize the bloodhound suggestion engine
+    numbers.initialize();
+
+    // instantiate the typeahead UI
+    $('#task-name-input').typeahead(null, {
+        displayKey: 'num',
+        source: numbers.ttAdapter()
+    });
+    
+    // slide call back function
     function slide(evt, ui) {
         var starttime = $('#timepicker').val()[0];
         var endtime = $('#timepicker').val()[1];
@@ -44,9 +74,6 @@ $(function() {
         }
         else {
             time = "PM";
-        }
-        if (hours === 0) {
-            hours = 12;
         }
         if (hours > 12) {
             hours = hours - 12;

@@ -20,11 +20,11 @@ html
             form(role='form', action='/record/add', method='POST')
                 .form-group
                     label(for='task-name-input') Task Name
-                    input#task-name-input.form-control(type='text', placeholder='Enter task name')
+                    input#task-name-input.typeahead(type='text' placeholder='tasks' autocomplete='off' spellcheck='false' dir='auto')
                     br
                     label(for='datepicker') Please pick a date
                     br
-                    input#datepicker(type="text")
+                    input#datepicker(type='text')
                     br
                     br
                     label(for='timepicker') Please select time
@@ -42,6 +42,7 @@ html
                     a(href='/')
                         button.btn.btn-warning.btn-lg.btn-block(type='button') Cancel
 
+        script(src='//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js')
         include includes/scripts
         script(src='//code.jquery.com/ui/1.10.4/jquery-ui.js')
         script(src='/js/jquery.nouislider.min.js')
@@ -49,6 +50,7 @@ html
         script(src='/js/picker/picker.date.js')
         script(src='/js/picker/picker.time.js')
         script(src='/js/picker/legacy.js')
+        script(src='//twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js')
         script(src='/js/record_alternative.js')
 
         include mixins/help
