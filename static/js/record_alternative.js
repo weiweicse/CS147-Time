@@ -6,6 +6,7 @@ $(function() {
         range: [0, 1439],
         start: [0, 1439],
         step: 5,
+        connect: true,
         slide: slide
     });
 
