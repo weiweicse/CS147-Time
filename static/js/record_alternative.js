@@ -2,20 +2,23 @@ $(function() {
     var start = 0;
     var end = 1439;
     $('#datepicker').pickadate();
-    $('#starttime').on('slidestop', function(evt) {
-        start = $('#starttime').val();
-        var minutes = parseInt(start % 60, 10);
-        var hours = parseInt(start / 60 % 24, 10);
-        var starttime = getTime(hours, minutes);
-        $('#timestart').text(starttime);
+    $('#timepicker').noUiSlider({
+        range: [0, 1439],
+        start: [0, 1439],
+        step: 5,
+        slide: slide
     });
-    $('#endtime').on('slidestop', function(evt) {
-        end = $('#endtime').val();
-        var minutes = parseInt(end % 60, 10);
-        var hours = parseInt(end / 60 % 24, 10);
-        var endtime = getTime(hours, minutes);
-        $('#timeend').text(endtime);
-    });
+
+    function slide(evt, ui) {
+        var starttime = $('#timepicker').val()[0];
+        var endtime = $('#timepicker').val()[1];
+        var minutes = parseInt(starttime % 60, 10);
+        var hours = parseInt(starttime / 60 % 24, 10);
+        $('#timestart').text(getTime(hours, minutes));
+        minutes = parseInt(endtime % 60, 10);
+        hours = parseInt(endtime / 60 % 24, 10);
+        $('#timeend').text(getTime(hours, minutes));
+    }
 
     function getTime(hours, minutes) {
         var time = null;

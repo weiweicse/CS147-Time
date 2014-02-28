@@ -4,12 +4,12 @@ html
         title Record Time Usage - VisualTime
         meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0')
         include includes/stylesheets
-        link(href='/css/record_alternative.css', rel='stylesheet', type='text/css')
-        link(rel='stylesheet' href='//code.jquery.com/mobile/1.4.0/jquery.mobile-1.4.0.min.css')
-        link(href='//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css', rel='stylesheet', type='text/css')
-        link(rel="stylesheet" href="js/picker/themes/default.css" id="theme_base")
-        link(rel="stylesheet" href="js/picker/themes/default.date.css" id="theme_date")
-        link(rel="stylesheet" href="js/picker/themes/default.time.css" id="theme_time")
+        link(href='/css/record_alternative.css' rel='stylesheet' type='text/css')
+        link(href='//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css' rel='stylesheet' type='text/css')
+        link(href='/css/jquery.nouislider.min.css' rel='stylesheet' type='text/css')
+        link(rel="stylesheet" href="/js/picker/themes/default.css" id="theme_base")
+        link(rel="stylesheet" href="/js/picker/themes/default.date.css" id="theme_date")
+        link(rel="stylesheet" href="/js/picker/themes/default.time.css" id="theme_time")
     body
         include mixins/menubar
         +menubar('Record', '/', 'chevron-left', '', '')
@@ -21,13 +21,16 @@ html
                 .form-group
                     label(for='task-name-input') Task Name
                     input#task-name-input.form-control(type='text', placeholder='Enter task name')
-                label(for='datepicker') Please pick a date
-                input#datepicker(type="text")
-                #timepicker(data-role='rangeslider', data-highlight='false')
-                    label(for='starttime') Please select time:
-                    input#starttime(type='range', name='starttime', min='0', max='1439', value='0')
-                    label(for='endtime') End Time&colon;
-                    input#endtime(type='range', name='endtime', min='0', max='1439', value='1439')
+                    br
+                    label(for='datepicker') Please pick a date
+                    br
+                    input#datepicker(type="text")
+                    br
+                    br
+                    label(for='timepicker') Please select time
+                    br
+                    br
+                    #timepicker
                 div(style='text-align: center;')
                     span#timestart 00:00 AM
                     span &nbsp; - &nbsp;
@@ -42,11 +45,12 @@ html
 
         include includes/scripts
         script(src='//code.jquery.com/ui/1.10.4/jquery-ui.js')
-        script(src='//cdnjs.cloudflare.com/ajax/libs/jquery-mobile/1.4.1/jquery.mobile.min.js')
-        script(src="js/picker/picker.js")
-        script(src="js/picker/picker.date.js")
-        script(src="js/picker/picker.time.js")
-        script(src="js/picker/legacy.js")
+        script(src='/js/jquery.nouislider.min.js')
+        script(src='/js/picker/picker.js')
+        script(src='/js/picker/picker.date.js')
+        script(src='/js/picker/picker.time.js')
+        script(src='/js/picker/legacy.js')
+        script(src='/js/record_alternative.js')
 
         include mixins/help
         +help("This is your “Record Time Usage” screen. On this page, you can record what task accomplished, what time you started that task, and what time that task ended.<br> The tasks that you save on this page are recorded into your Visual Time account and will appear on the applications in the “Menu” screen. Recording these tasks will help you get a better grasp of how you visualize your time .<br> Press the “Cancel” button to stop recording a task and to return to the home screen.")
