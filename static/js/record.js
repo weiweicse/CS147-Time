@@ -34,28 +34,17 @@ $(function() {
             ':' + pad(date.getMinutes());
     }
 
-    // auto-fill start date
+    // auto-fill start and end date
     var now = new Date();
-    if (is_mobile)
+    if (is_mobile) {
         $start.val(dateToInputValue(now));
-    else {
-        $start.datetimepicker({
-            onClose: function(dateText, inst) {
-                if ($start.val() && !$end.val())
-                    $end.val(dateText);
-            }
-        });
+        $end.val(dateToInputValue(now));
+    } else {
+        $start.datetimepicker();
         $end.datetimepicker();
 
         $start.datetimepicker('setDate', now);
-    }
-
-    if (is_mobile) {
-        // fill default value of end for better usability
-        $end.on('focus', function(e) {
-            if ($start.val() && !$end.val())
-                $end.val($start.val());
-        });
+        $end.datetimepicker('setDate', now);
     }
 
     /*
