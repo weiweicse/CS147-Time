@@ -55,7 +55,7 @@ function normalizeTime(date) {
     var ampm = hour >= 12 ? 'PM' : 'AM';
     hour = hour % 12;
     hour = hour === 0 ? 12 : hour;
-    return [hour, date.getMinutes()+1].map(pad).join(':') + ampm;
+    return [hour, date.getMinutes()].map(pad).join(':') + ampm;
 }
 
 function populateRecords(records, low, high) {
