@@ -1,7 +1,14 @@
 $(function() {
     var start = 0;
     var end = 1439;
-    $('#datepicker').pickadate();
+    $('#datepicker').pickadate({
+        // auto-fill date
+        onStart: function() {
+            console.log("hello, there");
+            var date = new Date();
+            this.set('select', [date.getFullYear(), date.getMonth(), date.getDate()]);
+        }
+    });
     $('#timepicker').noUiSlider({
         range: [0, 1439],
         start: [0, 1439],
@@ -45,4 +52,5 @@ $(function() {
         }
         return hours + ":" + minutes + " " + time;
     }
+
 });
