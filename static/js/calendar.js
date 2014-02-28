@@ -81,12 +81,19 @@ var d3Calendar = function() {
     };
 }();
 $(document).ready( function () {
+    var aspect = d3Calendar.calendarWidth / d3Calendar.calendarHeight;
+    var chart = $("#chart");
     renderCalendarGrid();
     $.get('/api/calendar/' + d3Calendar.yearToDisplay() + '/' + d3Calendar.monthToDisplay(), function(intensity) {
         renderDaysOfMonth(intensity);
     });
     $('#back').click(displayPreviousMonth);
     $('#forward').click(displayNextMonth);
+    $(window).on("resize", function() {
+        var targetWidth = chart.parent().width();
+        chart.attr("width", targetWidth);
+        chart.attr("height", Math.round(targetWidth / aspect));
+    }).trigger("resize");
 });
 function displayPreviousMonth() {
     d3Calendar.decrementCounter();
@@ -154,12 +161,7 @@ function getDataForMonth() {
 }
 
 function renderCalendarGrid(month, year) {
-    d3Calendar.calendar = d3.select("#chart")
-    .append("svg")
-    .attr("class", "calendar")
-    .attr("width", d3Calendar.calendarWidth)
-    .attr("height", d3Calendar.calendarHeight)
-    .append("g");
+    d3Calendar.calendar = d3.select("#chart");
     var cellPositions = d3Calendar.gridCellPositions;
     var daysOfTheWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     var daysInMonthToDisplay = d3Calendar.daysInMonth();
