@@ -29,14 +29,13 @@ html
                     br
                     label(for='timepicker') Please select time
                     br
+                    div(style='text-align: center;')
+                        span#timestart 00:00 AM
+                        span &nbsp; - &nbsp;
+                        span#timeend 11:59 PM
                     br
                     #timepicker.blue
-                div(style='text-align: center;')
-                    span#timestart 00:00 AM
-                    span &nbsp; - &nbsp;
-                    span#timeend 11:59 PM
-
-                #error-alert.alert.alert-danger(style='display:none;')
+                        #error-alert.alert.alert-danger(style='display:none;')
 
                 .button-holder
                     button.btn.btn-success.btn-lg.btn-block(type='submit') Save
