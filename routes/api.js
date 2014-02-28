@@ -207,6 +207,16 @@ exports.get_today = function(req, res) {
         })
         .exec(function(err, records) {
             if (err) console.log(err);
+            // manually add a slot of now
+            var now = new Date();
+            var next_min = new Date(now);
+            next_min.setMinutes(next_min.getMinutes()+5);
+            records.push({
+                task: 'NOW',
+                from: now,
+                to: next_min
+            });
+
             // sort the records
             records.sort(function(a, b) {
                 return new Date(a.from) > new Date(b.from);

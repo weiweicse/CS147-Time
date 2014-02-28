@@ -47,6 +47,9 @@ td .label {
 .progress-bar-empty {
   background-color: rgba(255, 255, 255, 0); }
 
+.progress-bar-now {
+  background-color: #f0ad4e; }
+
 #load-more {
   margin-bottom: 10px; }
 
