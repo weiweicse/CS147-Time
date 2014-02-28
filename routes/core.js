@@ -119,6 +119,10 @@ exports.record = function(req, res) {
     });
 };
 
+exports.record_alter = function(req, res) {
+    res.render('record_alternative');
+};
+
 // convert to YY/DD/YYYY HH:MM
 function datetimePickerFormat(date) {
     var d = [date.getMonth()+1, date.getDate(), date.getFullYear()].map(pad).join('/');
