@@ -68,6 +68,7 @@ app.post('/record/delete/:id', core.delete_record);
 
 // Add api routes
 app.get('/api/user', api.get_user_info);
+app.get('/api/tasks', api.get_tasks);
 app.get('/api/stats', api.get_stats);
 app.get('/api/usage/by/:duration', api.get_usage);
 app.get('/api/trend', api.get_trend);

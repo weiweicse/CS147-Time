@@ -20,32 +20,24 @@ $(function() {
     });
     // type ahead
     // instantiate the bloodhound suggestion engine
-    var numbers = new Bloodhound({
-        datumTokenizer: function(d) { return Bloodhound.tokenizers.whitespace(d.num); },
-        queryTokenizer: Bloodhound.tokenizers.whitespace,
-        local: [
-            { num: 'one' },
-            { num: 'two' },
-            { num: 'three' },
-            { num: 'four' },
-            { num: 'five' },
-            { num: 'six' },
-            { num: 'seven' },
-            { num: 'eight' },
-            { num: 'nine' },
-            { num: 'ten' }
-        ]
+    $.get('/api/tasks', function(records) {
+        console.log(records);
+        var tasks = new Bloodhound({
+            datumTokenizer: function(d) { return Bloodhound.tokenizers.whitespace(d.task); },
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            local: records
+        });
+
+        // initialize the bloodhound suggestion engine
+        tasks.initialize();
+
+        // instantiate the typeahead UI
+        $('#task-name-input').typeahead(null, {
+            displayKey: 'task',
+            source: tasks.ttAdapter()
+        });
     });
 
-    // initialize the bloodhound suggestion engine
-    numbers.initialize();
-
-    // instantiate the typeahead UI
-    $('#task-name-input').typeahead(null, {
-        displayKey: 'num',
-        source: numbers.ttAdapter()
-    });
-    
     // slide call back function
     function slide(evt, ui) {
         var starttime = $('#timepicker').val()[0];
