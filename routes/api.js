@@ -30,6 +30,23 @@ exports.get_stats = function(req, res) {
     });
 };
 
+exports.get_tasks = function(req, res) {
+    var username = req.session.username;
+    var duration = 14; // two weeks
+    var high = new Date();
+    var low = new Date();
+    low.setDate(high.getDate() - duration);
+    models.Record
+        .find({
+            user: req.session.username,
+            from: {$lt: high, $gte: low}
+        })
+        .exec(function(err, records) {
+            if (err) console.log(err);
+            res.json(records);
+        });
+};
+
 exports.get_usage = function(req, res) {
     console.log("get usage request for " + req.params.duration);
     var duration = req.params.duration;

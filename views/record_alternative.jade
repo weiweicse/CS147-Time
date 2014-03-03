@@ -4,7 +4,6 @@ html
         title Record Time Usage - VisualTime
         meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0')
         include includes/stylesheets
-        link(href='//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css' rel='stylesheet' type='text/css')
         link(href='/css/jquery.nouislider.min.css' rel='stylesheet' type='text/css')
         link(href='/css/record_alternative.css' rel='stylesheet' type='text/css')
         link(rel="stylesheet" href="/js/picker/themes/default.css" id="theme_base")
@@ -20,23 +19,22 @@ html
             form(role='form', action='/record/add', method='POST')
                 .form-group
                     label(for='task-name-input') Task Name
-                    input#task-name-input.form-control(type='text', placeholder='Enter task name')
+                    input#task-name-input.typeahead(type='text' placeholder='tasks' autocomplete='off' spellcheck='false' dir='auto')
                     br
                     label(for='datepicker') Please pick a date
                     br
-                    input#datepicker(type="text")
+                    input#datepicker(type='text')
                     br
                     br
                     label(for='timepicker') Please select time
                     br
+                    div(style='text-align: center;')
+                        span#timestart 00:00 AM
+                        span &nbsp; - &nbsp;
+                        span#timeend 11:59 PM
                     br
                     #timepicker.blue
-                div(style='text-align: center;')
-                    span#timestart 00:00 AM
-                    span &nbsp; - &nbsp;
-                    span#timeend 11:59 PM
-
-                #error-alert.alert.alert-danger(style='display:none;')
+                        #error-alert.alert.alert-danger(style='display:none;')
 
                 .button-holder
                     button.btn.btn-success.btn-lg.btn-block(type='submit') Save
@@ -44,12 +42,12 @@ html
                         button.btn.btn-warning.btn-lg.btn-block(type='button') Cancel
 
         include includes/scripts
-        script(src='//code.jquery.com/ui/1.10.4/jquery-ui.js')
         script(src='/js/jquery.nouislider.min.js')
         script(src='/js/picker/picker.js')
         script(src='/js/picker/picker.date.js')
         script(src='/js/picker/picker.time.js')
         script(src='/js/picker/legacy.js')
+        script(src='//twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js')
         script(src='/js/record_alternative.js')
 
         include mixins/help
