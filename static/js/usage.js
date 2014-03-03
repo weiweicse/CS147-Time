@@ -24,6 +24,7 @@ $(function() {
         return tasks;
     }
 
+    var $nothing = $('#nothing');
     var $chart = $('#pie-chart');
     var $legend = $('#task-legends');
     var chart_options = {
@@ -32,15 +33,12 @@ $(function() {
     };
 
     function updateGraph(tasks) {
-        console.log(tasks);
         var data = tasks.map(function(t) {
             return {
                 value: t.minutes,
                 color: t.color
             };
         });
-        console.log('after');
-        console.log(data);
 
         var width = $chart.closest('.container').width();
         $chart.attr('width', width).attr('height', width);
@@ -61,6 +59,8 @@ $(function() {
 
     var $toggler = $('#view-toggler');
     $toggler.on('click', 'span', function() {
+        $nothing.hide();
+
         // do not re-draw on active item
         var $active_item = $toggler.find('.active');
         if ($active_item.find('span')[0] === this) return;
@@ -78,8 +78,14 @@ $(function() {
 
         // use json api to populate data
         $.get('/api/usage/by/' + duration, function(data) {
-            console.log('data:\n' + data);
-            updateGraph(data);
+            if (data.length === 0) {
+                var duration_txt = duration === 30 ? 'this month' : (
+                                   duration === 7  ? 'this week'  : 'today');
+                $nothing.find('.holder').text(duration_txt);
+                $nothing.fadeIn();
+            } else {
+                updateGraph(data);
+            }
         });
     });
 

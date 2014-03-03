@@ -18,6 +18,16 @@ html
                 .col-xs-4
                     span.month Month
 
+            #nothing.well
+                h2
+                    | You haven't recorded anything for&nbsp;
+                    span.holder
+                    |.
+                include mixins/icon
+                a.btn.btn-lg.btn-block.btn-info(href='/record')
+                    +icon('plus')
+                    | &nbsp; Record an Event
+
             canvas#pie-chart
 
             ul#task-legends.list-unstyled
