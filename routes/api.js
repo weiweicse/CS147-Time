@@ -47,6 +47,14 @@ exports.get_tasks = function(req, res) {
         });
 };
 
+// Ref: http://stackoverflow.com/a/12266311/1240620
+function getRandomColor() {
+    var r = (Math.round(Math.random()* 127) + 127).toString(16);
+    var g = (Math.round(Math.random()* 127) + 127).toString(16);
+    var b = (Math.round(Math.random()* 127) + 127).toString(16);
+    return '#' + r + g + b;
+}
+
 exports.get_usage = function(req, res) {
     console.log("get usage request for " + req.params.duration);
     var duration = req.params.duration;
@@ -88,14 +96,6 @@ exports.get_usage = function(req, res) {
             console.log(arr);
             res.json(arr);
         });
-    function getRandomColor() {
-        var letters = '0123456789ABCDEF'.split('');
-        var color = '#';
-        for (var i = 0; i < 6; i++) {
-            color += letters[Math.round(Math.random() * 15)];
-        }
-        return color;
-    }
 };
 
 exports.get_trend = function(req, res) {

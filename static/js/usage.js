@@ -50,7 +50,7 @@ $(function() {
             $legend.html('');
 
             tasks.map(function(t) {
-                $legend.append('<li><button type="button" class="btn btn-xs" style="color:rgba(0,0,0,0);background-color:' + t.color + ';">X</button>' + t. name + '</li>');
+                $legend.append('<li class="col-xs-6"><button type="button" class="btn btn-xs" style="color:rgba(0,0,0,0);background-color:' + t.color + ';">X</button>' + t. name + '</li>');
             });
 
             $legend.fadeIn();
