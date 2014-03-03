@@ -1,0 +1,34 @@
+doctype html
+html
+    head
+        title VisualTime
+        meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0')
+        include includes/app-meta
+        include includes/stylesheets
+        link(href='css/next.css', rel='stylesheet', type='text/css')
+
+    body
+        .container
+            h2
+                | Just One More Step
+
+            .lead
+                | 1. Tap on the share icon in the bottom toolbar.
+
+                figure
+                    img(src='/img/instruction1.png', style="width:100%")
+
+                | 2. Then tap on "Add to Home Screen".
+
+                figure
+                    img(src='/img/instruction2.png', style="width:100%")
+
+                | 3. Tap on "Add" and you are done!
+
+        include includes/scripts
+        script.
+            $(function() {
+                if (window.navigator.standalone)
+                    window.location = '/welcome';
+            });
+
