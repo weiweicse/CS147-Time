@@ -1,18 +1,21 @@
 var models = require('../models');
 
 exports.login = function(req, res) {
-    console.log(req.query.name);
     if (!req.query.name) {
         res.render('login');
         return;
     }
     req.session.username = req.query.name;
-    res.redirect('/');
+    res.redirect('/welcome');
 };
 
 exports.logout = function(req, res) {
     req.session.username = '';
     res.redirect('/login');
+};
+
+exports.welcome = function(req, res) {
+    res.render('welcome');
 };
 
 exports.home = function(req, res) {

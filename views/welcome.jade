@@ -1,0 +1,40 @@
+doctype html
+html
+    head
+        title VisualTime
+        meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0')
+        include includes/stylesheets
+        link(href='css/welcome.css', rel='stylesheet', type='text/css')
+
+    body
+        .container
+            h2 Welcome aboard.
+
+            #slider.swipe
+                .swipe-wrap
+                    div
+                        figure
+                            img(src='/img/home.png')
+                            p Your hub of time visualization.
+                    div
+                        figure
+                            img(src='/img/record.png')
+                            p Record activity like a ninja.
+                    div
+                        figure
+                            img(src='/img/history.png')
+                            p History at your grasp.
+                    div
+                        figure
+                            img(src='/img/calendar.png')
+                            p Discover monthly performance.
+                    div
+                        figure
+                            img(src='/img/usage.png')
+                            p Intuitive time usage.
+
+            a#get-started.btn.btn-lg.btn-block.btn-success(href='/') Get Started
+
+        include includes/scripts
+        script(src='//cdnjs.cloudflare.com/ajax/libs/swipe/2.0/swipe.min.js')
+        script(src='/js/welcome.js')
