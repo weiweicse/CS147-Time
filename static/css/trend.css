@@ -1,3 +1,7 @@
+@import url(//fonts.googleapis.com/css?family=Raleway);
+body {
+  font-family: Raleway, Avenir, sans-serif; }
+
 body {
   margin-top: 80px; }
 
@@ -31,4 +35,5 @@ body {
 
 .canvasWrapper {
   height: 80%;
+  width: 60%;
   margin-top: 2em; }
