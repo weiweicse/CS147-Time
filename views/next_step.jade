@@ -10,7 +10,7 @@ html
     body
         .container
             h2
-                | Just One More Step
+                | Add the app to your home screen!
 
             .lead
                 | 1. Tap on the share icon in the bottom toolbar.
@@ -28,6 +28,9 @@ html
                 br
 
                 | 4. Close this page and you're done!
+
+            a#continue.btn.btn-lg.btn-block.btn-default(href='/welcome')
+                | I prefer to use browser &raquo;
 
         include includes/scripts
         include includes/ga
