@@ -24,25 +24,6 @@ $(function() {
         connect: true,
         slide: slide
     });
-    // type ahead
-    // instantiate the bloodhound suggestion engine
-    $.get('/api/tasks', function(records) {
-        console.log(records);
-        var tasks = new Bloodhound({
-            datumTokenizer: function(d) { return Bloodhound.tokenizers.whitespace(d.task); },
-            queryTokenizer: Bloodhound.tokenizers.whitespace,
-            local: records
-        });
-
-        // initialize the bloodhound suggestion engine
-        tasks.initialize();
-
-        // instantiate the typeahead UI
-        $('#task-name-input').typeahead(null, {
-            displayKey: 'task',
-            source: tasks.ttAdapter()
-        });
-    });
 
     // slide call back function
     function slide(evt, ui) {

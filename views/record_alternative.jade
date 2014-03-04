@@ -19,20 +19,20 @@ html
             form(role='form', action='/record/add', method='POST')
                 .form-group
                     label(for='task-name-input') Task Name
-                    input#task-name-input.typeahead(type='text' placeholder='tasks' autocomplete='off' spellcheck='false' dir='auto')
-                    br
-                    label(for='datepicker') Please pick a date
-                    br
-                    input#datepicker(type='text')
-                    br
-                    br
-                    label(for='timepicker') Please select time
-                    br
+                    input#task-name-input.form-control(type='text', placeholder='Enter your activity here')
+
+                .form-group
+                    label(for='datepicker') Tap to pick the date
+                    input#datepicker.form-control(type='text')
+
+                .form-group
+                    label(for='timepicker') Select duration with the slider
+
                     div(style='text-align: center;')
                         span#timestart 00:00 AM
                         span &nbsp; - &nbsp;
                         span#timeend 11:59 PM
-                    br
+
                     #timepicker.blue
                         #error-alert.alert.alert-danger(style='display:none;')
 
@@ -47,7 +47,6 @@ html
         script(src='/js/picker/picker.date.js')
         script(src='/js/picker/picker.time.js')
         script(src='/js/picker/legacy.js')
-        script(src='//twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js')
         include includes/ga
         script(src='/js/record_alternative.js')
 
