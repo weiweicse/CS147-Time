@@ -67,22 +67,41 @@ $(function() {
         return hours + ":" + minutes + " " + time;
     }
 
+    var $error_alert = $('#error-alert');
+    var $name = $('#task-name-input');
+
+    function clearError() {
+        $error_alert.hide();
+        $name.closest('.form-group').removeClass('has-error');
+    }
+
+    function showError(msg) {
+        $error_alert.text(msg).fadeIn();
+    }
+
     $('form').submit(function(e) {
         e.preventDefault();
+
+        clearError();
+
+        var task_name = $name.val();
+        if (!task_name) {
+            $name.closest('.form-group').addClass('has-error');
+            showError('Task name is empty.');
+            return;
+        }
+
         var t2 = new Date().getTime();
         var timespent = t2 - t1;
         ga('send', 'timing', 'record', 'record_alternative', timespent, 'record_alternative');
         ga('send', 'event', 'record', 'record_alternative', 'record_alternative', timespent);
         var starttime = $('#timepicker').val()[0];
         var endtime = $('#timepicker').val()[1];
-        console.log(starttime);
-        console.log(endtime);
 
         var date = picker.get('select', 'yyyy/mm/dd');
-        console.log(date);
 
         var json = {
-            'task': $('#task-name-input').val(),
+            'task': task_name,
             'from': date + ' ' + translateTime(starttime),
             'to': date + ' ' + translateTime(endtime)
         };
