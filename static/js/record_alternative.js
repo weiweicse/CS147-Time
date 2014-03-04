@@ -1,7 +1,11 @@
 $(function() {
     var start = 0;
     var end = 1439;
-    var date = new Date($('body').data('date'));
+    var prefilled_date = $('body').data('date'), date;
+    if (prefilled_date)
+        date = new Date(prefilled_date + ' 12:00');
+    else
+        date = new Date();
     // date picker
     var $input = $('#datepicker').pickadate({
         // auto-fill date
@@ -97,8 +101,11 @@ $(function() {
         };
 
         $.post('/record/add', json, function() {
-            console.log("success");
-            window.location.href = '/?success';
+            var start = new Date(json.from);
+            if (prefilled_date)
+                window.location.href = '/history/' + start.getFullYear() + '/' + (start.getMonth() + 1) + '/' + start.getDate() + '/?success';
+            else
+                window.location.href = '/?success';
         });
     });
 });
