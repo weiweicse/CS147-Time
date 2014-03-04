@@ -53,6 +53,7 @@ app.use(express.static(__dirname + '/static'));
 app.get('/', core.home);
 app.get('/login', core.login);
 app.get('/logout', core.logout);
+app.get('/next-step', core.next_step);
 app.get('/welcome', core.welcome);
 app.get('/record', core.record);
 app.get('/record_alter', core.record_alter); // test sliding time picker

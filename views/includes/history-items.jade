@@ -1,7 +1,6 @@
 include ../mixins/icon
 
 for item in items
-    if item.events.length
         .done-list.panel.panel-default(data-date=item.date)
             .panel-heading
                 span
@@ -10,13 +9,15 @@ for item in items
                     | &nbsp;
                 span.badge= item.events.length
 
-            table.table
-                tbody
-                    for event in item.events
-                        tr
-                            td.col-xs-6 #{event.start} - #{event.end}
-                            td.col-xs-6
-                                = event.name
-                                //- TODO: use real id
-                                a(href='/edit/#{event.id}')
-                                    +badge-icon('edit')
+            if item.events.length
+                table.table
+                    tbody
+                        for event in item.events
+                            tr
+                                td.col-xs-6 #{event.start} - #{event.end}
+                                td.col-xs-6
+                                    = event.name
+                                    a(href='/edit/#{event.id}')
+                                        +badge-icon('edit')
+            else
+                p Hehe

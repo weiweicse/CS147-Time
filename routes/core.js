@@ -6,16 +6,33 @@ exports.login = function(req, res) {
         return;
     }
     req.session.username = req.query.name;
-    res.redirect('/welcome');
+    req.session.new_user = true;
+    res.redirect('/next-step');
 };
 
 exports.logout = function(req, res) {
-    req.session.username = '';
+    req.session.destroy();
     res.redirect('/login');
 };
 
 exports.welcome = function(req, res) {
-    res.render('welcome');
+    if (req.session.new_user) {
+        req.session.new_user = false;
+        res.render('welcome');
+    } else {
+        res.redirect('/');
+    }
+};
+
+exports.next_step = function(req, res) {
+    var is_mobile = /mobile/i.test(req.header('user-agent'));
+    var iphone = /iPhone/i.test(req.header('user-agent'));
+
+    if (req.session.new_user && is_mobile && iphone) {
+        res.render('next_step');
+    } else {
+        res.redirect('/welcome');
+    }
 };
 
 exports.home = function(req, res) {
