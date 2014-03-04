@@ -48,15 +48,6 @@ td .label {
 .panel-heading, .panel-body {
   padding: 8px; }
 
-.progress-bar-empty {
-  background-color: rgba(255, 255, 255, 0); }
-
-.progress-bar-now {
-  background-color: #f0ad4e; }
-
-#load-more {
-  margin-bottom: 10px; }
-
 #success-msg {
   z-index: 100;
   display: none;
@@ -68,3 +59,12 @@ td .label {
   margin-bottom: 0;
   border-radius: 0;
   text-align: center; }
+
+.progress-bar-empty {
+  background-color: rgba(255, 255, 255, 0); }
+
+.progress-bar-now {
+  background-color: #f0ad4e; }
+
+#load-more {
+  margin-bottom: 10px; }

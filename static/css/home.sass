@@ -1,6 +1,7 @@
 @import partials/typeface
 @import partials/menubar
 @import partials/history
+@import partials/msg
 
 .progress-bar-empty
   background-color: rgba(255, 255, 255, 0)
@@ -10,19 +11,3 @@
 
 #load-more
   margin-bottom: 10px
-
-#success-msg
-  // put on top of everything
-  z-index: 100
-  display: none
-  position: fixed
-  left: 0
-  bottom: 0
-  width: 100%
-  // Reduce .alert's padding.
-  padding: 5px
-  // Undo .alert's margin-bottom, as we are
-  // putting alert at bottom
-  margin-bottom: 0
-  border-radius: 0
-  text-align: center

@@ -47,3 +47,15 @@ td .label {
 
 .panel-heading, .panel-body {
   padding: 8px; }
+
+#success-msg {
+  z-index: 100;
+  display: none;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 0;
+  border-radius: 0;
+  text-align: center; }
