@@ -1,3 +1,5 @@
+@import mixins/link
+
 .done-list .badge
   float: right
 
@@ -12,3 +14,6 @@ td .label
 
 .panel-heading, .panel-body
   padding: 8px
+
+.panel-heading
+  @include link-color
