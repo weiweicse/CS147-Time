@@ -102,7 +102,7 @@ $(function() {
             $.post('/record/add', json, function() {
                 var start = new Date(json.from);
                 if (prefilled_date)
-                    window.location.href = '/history/' + start.getFullYear() + '/' + (start.getMonth() + 1) + '/' + start.getDate();
+                    window.location.href = '/history/' + start.getFullYear() + '/' + (start.getMonth() + 1) + '/' + start.getDate() + '/?success';
                 else
                     window.location.href = '/?success';
             });
