@@ -17,7 +17,12 @@ for item in items
                                 td.col-xs-6 #{event.start} - #{event.end}
                                 td.col-xs-6
                                     = event.name
-                                    a(href='/edit/#{event.id}')
-                                        +badge-icon('edit')
+                                    a.btn.btn-xs.btn-primary.pull-right(href='/edit/#{event.id}')
+                                        +icon('edit')
+                                        | &nbsp; Edit
             else
-                p Hehe
+                .panel-body
+                    | You didn't record anything on this day.&nbsp;
+                    a.btn.btn-xs.btn-info.pull-right(href='/record?date=#{item.date}')
+                        +icon('plus')
+                        | &nbsp;Add

@@ -115,8 +115,6 @@ function populateRecords(records, low, high) {
         return new Date(a.date) < new Date(b.date);
     });
 
-    console.log(lists);
-
     return lists;
 }
 
@@ -232,14 +230,11 @@ function convertISOToDate(date_str) {
         return date_str;
     }
     var d = new Date(date_str + ':00-08:00');
-    console.log(d);
     return d;
 }
 
 exports.add_record = function(req, res) {
     var form_data = req.body;
-    console.log("form data");
-    console.log(form_data);
 
     if (!req.session.username || !form_data.task || !form_data.from || !form_data.to) {
         res.send(400);
@@ -289,7 +284,6 @@ exports.delete_record = function(req, res) {
 
 exports.update_record = function(req, res) {
     var form_data = req.body;
-    console.log(form_data);
     if (!form_data.id) {
         res.send(404);
         return;
@@ -316,7 +310,7 @@ exports.update_record = function(req, res) {
 
         record.save(function(err) {
             if (err) {
-                console.log(error);
+                console.log(err);
                 res.send(500);
             }
             res.send(200);
@@ -334,7 +328,6 @@ exports.trend = function(req, res) {
 
 exports.history_prev = function(req, res) {
     var last_date = req.query.date;
-    console.log(last_date);
     var high = new Date(last_date);
     var low = new Date(high);
     low.setDate(high.getDate() - 5);
