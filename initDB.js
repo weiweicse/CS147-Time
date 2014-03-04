@@ -23,13 +23,14 @@ mongoose.connect(database_uri);
 // Step 1: load the JSON data
 var records_json = require('./records.json');
 
-console.log(records_json);
+// console.log(records_json);
 
 // Step 2: remove all existing documents
 models.Record
     .find()
     .remove()
     .exec(function() {
+        console.log('DONE');
         mongoose.connection.close();
     });
 
