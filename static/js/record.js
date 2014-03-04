@@ -39,12 +39,13 @@ $(function() {
     // auto-fill start and end date
     var prefilled_date = $('body').data('date'), date;
     if (prefilled_date)
-      date = new Date(prefilled_date + ' 00:00');
+      date = new Date(prefilled_date + 'T10:00:00-08:00'); // use PST time
     else
       date = new Date();
 
     if (is_mobile) {
         $start.val(dateToInputValue(date));
+        date.setHours(date.getHours() + 2);
         $end.val(dateToInputValue(date));
     } else {
         $start.datetimepicker();
