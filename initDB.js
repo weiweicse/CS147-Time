@@ -29,7 +29,9 @@ console.log(records_json);
 models.Record
     .find()
     .remove()
-    .exec(function() {});
+    .exec(function() {
+        mongoose.connection.close();
+    });
 
 function onceClear(err) {
     if (err) console.log(err);
