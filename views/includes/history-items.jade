@@ -2,11 +2,12 @@ include ../mixins/icon
 
 for item in items
         .done-list.panel.panel-default(data-date=item.date)
+            - var date_path = item.date.replace(/-/g, '/')
             .panel-heading
-                span
+                a(href='/history/#{date_path}')
                     = item.date
                     //- add a space to prevent iOS recognize date as phone number
-                    | &nbsp;
+                    | &nbsp;&raquo;
                 span.badge= item.events.length
 
             if item.events.length
