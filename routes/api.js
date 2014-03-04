@@ -34,7 +34,7 @@ exports.get_tasks = function(req, res) {
     var username = req.session.username;
     var duration = 14; // two weeks
     var high = new Date();
-    var low = new Date();
+    var low = new Date(high);
     low.setDate(high.getDate() - duration);
     models.Record
         .find({
@@ -59,7 +59,7 @@ exports.get_usage = function(req, res) {
     console.log("get usage request for " + req.params.duration);
     var duration = req.params.duration;
     var high = new Date();
-    var low = new Date();
+    var low = new Date(high);
     low.setDate(high.getDate() - duration);
     /*
         {

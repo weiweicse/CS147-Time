@@ -65,7 +65,7 @@ function populateRecords(records, low, high) {
     var num_records = records.length;
     var dates = {};
 
-    for (var d = low; d < high; d.setDate(d.getDate() + 1)) {
+    for (var d = new Date(low); d < high; d.setDate(d.getDate() + 1)) {
         dates[d] = [];
     }
 
@@ -97,6 +97,8 @@ function populateRecords(records, low, high) {
     lists.sort(function(a, b) {
         return new Date(a.date) < new Date(b.date);
     });
+
+    console.log(lists);
 
     return lists;
 }
@@ -313,7 +315,7 @@ exports.history_prev = function(req, res) {
     var last_date = req.query.date;
     console.log(last_date);
     var high = new Date(last_date);
-    var low = new Date();
+    var low = new Date(high);
     low.setDate(high.getDate() - 5);
     low.setHours(0);
     low.setMinutes(0);
