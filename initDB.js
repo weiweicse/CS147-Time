@@ -29,7 +29,7 @@ console.log(records_json);
 models.Record
     .find()
     .remove()
-    .exec(onceClear);
+    .exec(function() {});
 
 function onceClear(err) {
     if (err) console.log(err);
