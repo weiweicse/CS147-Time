@@ -10,6 +10,10 @@ exports.login = function(req, res) {
     res.redirect('/next-step');
 };
 
+exports.invitation = function(req, res) {
+    res.render('invitation');
+};
+
 exports.logout = function(req, res) {
     req.session.destroy();
     res.redirect('/login');

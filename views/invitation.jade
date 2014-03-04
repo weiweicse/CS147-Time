@@ -1,0 +1,66 @@
+doctype html
+html
+    head
+        title VisualTime Alpha Test Invitation
+        meta(name='viewport', content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0')
+        include includes/stylesheets
+        link(href='css/invitation.css', rel='stylesheet', type='text/css')
+
+    body
+        .container
+            h1
+                span.glyphicon.glyphicon-time
+                | &nbsp;VisualTime
+
+            h2
+                | Test Invitation Letter
+
+        #text.container
+            .col-xs-12
+                p.lead
+                    | Dear user:
+
+                p.lead
+                    | Do you feel losing control of your time?
+
+                p.lead
+                    | Have you ever wondered how your time is actually used?
+
+                p.lead
+                    | You're invited! You are warmly welcomed to join the VisualTime app alpha test.
+
+                p.lead
+                    | Via various intuitive visualization, VisualTime helps you build better awareness of how your time is used.
+
+                p.lead
+                    | To make VisualTime a better app for you, we need your help. Your feedback is of the highest importance to us!
+
+                p.lead
+                    | Before we start, please take a few seconds to 
+                    a#survey-link(target='_blank', href='https://docs.google.com/forms/d/1AXvSAPO2NJH0rHzpZ29uZe1sx2Hdsmh8YVB1gbJGyuE/viewform')
+                        | do a tiny survey
+                    | .
+
+                hr
+
+            #app-link.row(style='display:none')
+                .col-xs-6.col-xs-offset-3
+                    a.btn.btn-default.btn-block(target='_blank', href='http://visualtime.herokuapp.com') Open App Now
+                .col-xs-12
+                    p(style='text-align:center') Or open with QR code
+
+                .col-xs-12
+                    figure
+                        img(src='/img/visualtime-qr.png', width='270', height='270')
+
+            .col-xs-12
+                p.lead
+                    | Best,
+
+                p.lead
+                    | The VisualTime Team
+
+
+        include includes/scripts
+        script(src='/js/invitation.js')
+        include includes/ga

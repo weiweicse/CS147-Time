@@ -51,6 +51,7 @@ app.use(express.static(__dirname + '/static'));
 
 // Add page routes
 app.get('/', core.home);
+app.get('/invitation', core.invitation);
 app.get('/login', core.login);
 app.get('/logout', core.logout);
 app.get('/next-step', core.next_step);
