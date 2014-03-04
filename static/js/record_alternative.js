@@ -1,4 +1,6 @@
 $(function() {
+    // for tracking purpose
+    var t1 = new Date().getTime();
     var start = 0;
     var end = 1439;
     var prefilled_date = $('body').data('date'), date;
@@ -86,6 +88,10 @@ $(function() {
 
     $('form').submit(function(e) {
         e.preventDefault();
+        var t2 = new Date().getTime();
+        var timespent = t2 - t1;
+        ga('send', 'timing', 'record', 'record_alternative', timespent, 'record_alternative');
+        ga('send', 'event', 'record', 'record_alternative', 'record_alternative', timespent);
         var starttime = $('#timepicker').val()[0];
         var endtime = $('#timepicker').val()[1];
         console.log(starttime);

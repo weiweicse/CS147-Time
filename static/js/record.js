@@ -1,4 +1,6 @@
 $(function() {
+    // for tracking purpose
+    var t1 = new Date().getTime();
     // browser class detection
     var is_mobile = $('body').data('browser') === 'mobile';
 
@@ -88,6 +90,10 @@ $(function() {
         }
 
         if (!error) {
+            var t2 = new Date().getTime();
+            var timespent = t2 - t1;
+            ga('send', 'timing', 'record', 'record', timespent, 'record');
+            ga('send', 'event', 'record', 'record', 'record', timespent);
             var json = {
                 'task': $name.val(),
                 'from': $start.val(),
