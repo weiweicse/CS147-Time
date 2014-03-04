@@ -142,6 +142,7 @@ exports.record = function(req, res) {
 };
 
 exports.record_alter = function(req, res) {
+    var date = req.query.date;
     res.render('record_alternative', {
         date: date
     });
