@@ -136,7 +136,7 @@ function renderDaysOfMonth(intensity) {
             }
         });
     console.log(intensity);
-    var maxintensity = Math.max.apply(Math, intensity);
+    var maxintensity = Math.max(1, Math.max.apply(Math, intensity));
     d3Calendar.calendar
         .selectAll("rect")
         .data(daysInMonthToDisplay)
