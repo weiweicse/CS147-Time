@@ -5,7 +5,7 @@ $(function() {
     var end = 1439;
     var prefilled_date = $('body').data('date'), date;
     if (prefilled_date)
-        date = new Date(prefilled_date + ' 12:00');
+        date = new Date(prefilled_date + 'T10:00:00-08:00');
     else
         date = new Date();
     // date picker
