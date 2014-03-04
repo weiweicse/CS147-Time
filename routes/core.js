@@ -135,14 +135,18 @@ exports.calendar = function(req, res) {
 };
 
 exports.record = function(req, res) {
+    var date = req.query.date;
     var is_mobile = /mobile/i.test(req.header('user-agent'));
     res.render('record', {
+        date: date,
         is_mobile: is_mobile
     });
 };
 
 exports.record_alter = function(req, res) {
-    res.render('record_alternative');
+    res.render('record_alternative', {
+        date: date
+    });
 };
 
 // convert to YY/DD/YYYY HH:MM

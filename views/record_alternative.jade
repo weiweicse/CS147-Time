@@ -9,7 +9,7 @@ html
         link(rel="stylesheet" href="/js/picker/themes/default.css" id="theme_base")
         link(rel="stylesheet" href="/js/picker/themes/default.date.css" id="theme_date")
         link(rel="stylesheet" href="/js/picker/themes/default.time.css" id="theme_time")
-    body
+    body(data-date=date)
         include mixins/menubar
         +menubar('Record', '/', 'chevron-left', '', '')
 

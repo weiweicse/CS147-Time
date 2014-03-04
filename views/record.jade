@@ -10,7 +10,7 @@ html
             link(href='/css/jquery-ui-timepicker-addon.css', rel='stylesheet', type='text/css')
 
     - var browser_class = is_mobile ? 'mobile' : 'desktop'
-    body(data-browser=browser_class)
+    body(data-browser=browser_class, data-date=date)
         include mixins/menubar
         +menubar('Record', '/', 'chevron-left', '', '')
 

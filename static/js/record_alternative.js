@@ -1,7 +1,7 @@
 $(function() {
     var start = 0;
     var end = 1439;
-    var date = new Date();
+    var date = new Date($('body').data('date'));
     // date picker
     var $input = $('#datepicker').pickadate({
         // auto-fill date

@@ -35,16 +35,16 @@ $(function() {
     }
 
     // auto-fill start and end date
-    var now = new Date();
+    var date = new Date($('body').data('date'));
     if (is_mobile) {
-        $start.val(dateToInputValue(now));
-        $end.val(dateToInputValue(now));
+        $start.val(dateToInputValue(date));
+        $end.val(dateToInputValue(date));
     } else {
         $start.datetimepicker();
         $end.datetimepicker();
 
-        $start.datetimepicker('setDate', now);
-        $end.datetimepicker('setDate', now);
+        $start.datetimepicker('setDate', date);
+        $end.datetimepicker('setDate', date);
     }
 
     /*
