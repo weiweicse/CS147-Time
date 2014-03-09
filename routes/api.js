@@ -42,7 +42,12 @@ exports.get_tasks = function(req, res) {
             from: {$lt: high, $gte: low}
         })
         .exec(function(err, records) {
-            if (err) console.log(err);
+            if (err) {
+                console.log(err);
+                res.send(500);
+                return;
+            }
+
             res.json(records);
         });
 };
@@ -56,7 +61,6 @@ function getRandomColor() {
 }
 
 exports.get_usage = function(req, res) {
-    console.log("get usage request for " + req.params.duration);
     var duration = req.params.duration;
     var high = new Date();
     var low = new Date(high);
@@ -74,9 +78,12 @@ exports.get_usage = function(req, res) {
             'from': {$lt: high, $gte: low}
         })
         .exec(function(err, records) {
-            if (err) console.log(err);
+            if (err) {
+                console.log(err);
+                res.send(500);
+                return;
+            }
             var num_records = records.length;
-            console.log("number of records: " + num_records);
             var names = {};
             for (var i = 0; i < num_records; i++) {
                 if (records[i].task in names) {
@@ -88,12 +95,10 @@ exports.get_usage = function(req, res) {
                     names[records[i].task].color = getRandomColor();
                 }
             }
-            console.log(names);
             var arr = [];
             for (var n in names) {
                 arr.push(names[n]);
             }
-            console.log(arr);
             res.json(arr);
         });
 };
@@ -104,7 +109,6 @@ exports.get_trend = function(req, res) {
     starttime.setMinutes(0);
     starttime.setSeconds(0);
     starttime.setDate(starttime.getDate() - 29);
-    console.log(starttime);
     models.Record
         .find({
             user: req.session.username,
@@ -116,6 +120,7 @@ exports.get_trend = function(req, res) {
         if (err) {
             console.log(err);
             res.send(500);
+            return;
         }
         var cnt = {};
         var now = new Date();
@@ -171,17 +176,19 @@ exports.get_calendar = function(req, res) {
     models.Record
         .find({user: req.session.username, from: {$lte: high, $gte: low}})
         .exec(function(err, records) {
-            if (err) console.log(err);
+            if (err) {
+                console.log(err);
+                res.send(500);
+                return;
+            }
             var num_records = records.length;
             var date;
-            console.log("length: " + num_records);
             for (i = 0; i < num_records; i++) {
                 date = records[i].from;
                 date.setHours(0);
                 date.setMinutes(0);
                 date.setSeconds(0);
                 intensity[date] += 1;
-                console.log(intensity[date]);
             }
             var ret = [];
             for (i = 0; i < daysArray.length; i++) {
@@ -223,7 +230,11 @@ exports.get_today = function(req, res) {
             from: {$lt: high, $gte: low}
         })
         .exec(function(err, records) {
-            if (err) console.log(err);
+            if (err) {
+                console.log(err);
+                res.send(500);
+                return;
+            }
             // manually add a slot of now
             var now = new Date();
             var next_min = new Date(now);
@@ -245,7 +256,6 @@ exports.get_today = function(req, res) {
             begin.setMinutes(0);
             begin.setSeconds(0);
             var total = high - begin;
-            console.log("total", total);
             var intervals = [];
             for (var i = 0; i < num_records && begin < high; i++) {
                 if (records[i].from > begin) {
@@ -259,8 +269,6 @@ exports.get_today = function(req, res) {
                     });
                     begin = records[i].to;
                 } else if (records[i].to > begin) {
-                    console.log(records[i]);
-                    console.log(begin);
                     intervals.push({
                         name: records[i].task,
                         percentage: (records[i].to - begin) / total
@@ -274,8 +282,6 @@ exports.get_today = function(req, res) {
                     percentage: (high - begin) / total
                 });
             }
-            console.log("records", records);
-            console.log("intervals", intervals);
             res.json(intervals);
         });
 };
