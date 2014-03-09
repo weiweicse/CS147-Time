@@ -16,14 +16,13 @@ for item in items
                         for event in item.events
                             tr
                                 td.col-xs-6 #{event.start} - #{event.end}
-                                td.col-xs-6
-                                    = event.name
-                                    a.btn.btn-xs.btn-primary.pull-right(href='/edit/#{event.id}')
-                                        +icon('edit')
-                                        | &nbsp; Edit
+                                td.task.col-xs-6
+                                    div
+                                        = event.name
+                                        a.btn.btn-xs.btn-primary.pull-right(href='/edit/#{event.id}')
+                                            +icon('edit')
             else
                 .panel-body
                     | Nothing recorded on this day.&nbsp;
                     a.btn.btn-xs.btn-info.pull-right(href='/record?date=#{item.date}')
                         +icon('plus')
-                        | &nbsp;Add

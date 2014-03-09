@@ -40,8 +40,15 @@ body {
 h3 {
   margin-top: 0; }
 
-td .label {
-  float: right; }
+td.task > div {
+  position: relative;
+  height: 22px;
+  word-break: break-all;
+  overflow: hidden; }
+  td.task > div a {
+    position: absolute;
+    top: 0;
+    right: 0; }
 
 .panel {
   margin-bottom: 10px; }
