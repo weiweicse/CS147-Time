@@ -55,6 +55,9 @@ $(function() {
         $end.datetimepicker('setDate', date);
     }
 
+    var submitting = false;
+    var $buttons = $('.button-holder button');
+
     /*
      * Note: set a.record-button(href='/?success') and preventDefault
      *       if error === true does not work in web app. So we set
@@ -62,6 +65,13 @@ $(function() {
      */
     $('form').submit(function(e) {
         e.preventDefault();
+
+        // prevent double submission
+        if (submitting)
+            return;
+
+        submitting = true;
+        $buttons.attr('disabled', true);
 
         var error = false;
 
@@ -112,7 +122,13 @@ $(function() {
                     window.location.href = '/history/' + start.getFullYear() + '/' + (start.getMonth() + 1) + '/' + start.getDate() + '/?success';
                 else
                     window.location.href = '/?success';
+            }).always(function() {
+                submitting = false;
+                $buttons.attr('disabled', false);
             });
+        } else {
+            submitting = false;
+            $buttons.attr('disabled', false);
         }
     });
 });
