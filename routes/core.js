@@ -44,6 +44,9 @@ exports.home = function(req, res) {
         res.redirect('/login');
 
     var high = new Date();
+    high.setHours(23);
+    high.setMinutes(59);
+    high.setSeconds(59);
     var low = new Date();
     low.setDate(high.getDate() - 5);
     low.setHours(0);
