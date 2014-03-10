@@ -130,17 +130,18 @@ exports.get_trend = function(req, res) {
         }
         // statistics
         for (var i = 0; i < records.length; i++) {
-            var from = records[i].from;
+            var from = new Date(records[i].from);
             from.setHours(0);
             from.setMinutes(0);
             from.setSeconds(0);
-            timeusage[from] += (new Date(from) - new Date(records[i].to)) / 3600000;
+            timeusage[from] += (records[i].to - records[i].from) / 3600000;
         }
         // convert map to array
         var arr = [];
-        for (var key in cnt) {
-            arr.push(timeusage[key]);
+        for (var key in timeusage) {
+            arr.push(Math.round(timeusage[key]));
         }
+        console.log(arr);
         res.json(arr);
     }
 };

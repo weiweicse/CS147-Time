@@ -47,8 +47,8 @@ function createChart() {
         console.log("ymax: " + ymax);
         var barChart = new Chart(ctx).Bar(data, {
             scaleOverride: true,
-            scaleSteps: ymax,
-            scaleStepWidth: 1,
+            scaleSteps: 10,
+            scaleStepWidth: ymax / 10,
             scaleStartValue: 0,
             barValueSpacing: 0
         });
