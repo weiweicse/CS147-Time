@@ -85,6 +85,21 @@ function normalizeTime(date) {
     return [hour, date.getMinutes()].map(pad).join(':') + ampm;
 }
 
+var time_rgx = /^(\d{2}):(\d{2})(\w{2})$/;
+var AMPM = {'AM': 1, 'PM': 2};
+function laterStart(r1, r2) {
+    var groups1 = time_rgx.exec(r1.start);
+    var groups2 = time_rgx.exec(r2.start);
+
+    // returning positive value means larger
+    // so that earlier events are considered larger
+    if (AMPM[groups1[3]] != AMPM[groups2[3]])
+        return AMPM[groups2[3]] - AMPM[groups1[3]];
+
+    return (groups1[1]%12 < groups2[1]%12) ||
+           (groups1[2] < groups2[2]);
+}
+
 function populateRecords(records, low, high) {
     var num_records = records.length;
     var dates = {};
@@ -112,6 +127,9 @@ function populateRecords(records, low, high) {
     var lists = [];
 
     for (var date in dates) {
+        // sort events by start time, descendingly
+        dates[date].sort(laterStart);
+
         lists.push({
             date: normalizeDate(new Date(date)),
             events: dates[date]
