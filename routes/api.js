@@ -122,11 +122,11 @@ exports.get_trend = function(req, res) {
             res.send(500);
             return;
         }
-        var cnt = {};
+        var timeusage = {};
         var now = new Date();
         // initialization
         for (var d = starttime; d <= now; d.setDate(d.getDate() + 1)) {
-            cnt[d] = 0;
+            timeusage[d] = 0;
         }
         // statistics
         for (var i = 0; i < records.length; i++) {
@@ -134,12 +134,12 @@ exports.get_trend = function(req, res) {
             from.setHours(0);
             from.setMinutes(0);
             from.setSeconds(0);
-            cnt[from]++;
+            timeusage[from] += new Date(from) - new Date(records[i].to);
         }
         // convert map to array
         var arr = [];
         for (var key in cnt) {
-            arr.push(cnt[key]);
+            arr.push(timeusage[key]);
         }
         res.json(arr);
     }
