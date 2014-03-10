@@ -15,8 +15,12 @@ html
             h3.greeting(data-username=user.name)
 
             p
-                | Quick visualization of today (8AM-10PM):
-            //- TODO: only a demo
+                | Quick visualization of today:
+
+            #progress-labels
+                span.start 8AM
+                span.end.pull-right 10PM
+
             .progress
 
             include mixins/icon

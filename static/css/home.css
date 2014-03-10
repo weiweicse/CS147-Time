@@ -72,6 +72,12 @@ td.task > div {
   border-radius: 0;
   text-align: center; }
 
+#progress-labels {
+  margin-top: -10px; }
+  #progress-labels span {
+    font-size: 0.8em;
+    color: #cccccc; }
+
 .progress-bar-empty {
   background-color: rgba(255, 255, 255, 0); }
 
