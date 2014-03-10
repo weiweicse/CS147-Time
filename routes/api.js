@@ -134,7 +134,7 @@ exports.get_trend = function(req, res) {
             from.setHours(0);
             from.setMinutes(0);
             from.setSeconds(0);
-            timeusage[from] += new Date(from) - new Date(records[i].to);
+            timeusage[from] += (new Date(from) - new Date(records[i].to)) / 3600000;
         }
         // convert map to array
         var arr = [];
