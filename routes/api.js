@@ -100,7 +100,7 @@ exports.get_usage = function(req, res) {
                 arr.push(names[n]);
             }
             arr.sort(function(a, b) {
-                return a.minutes) > b.minutes;
+                return a.minutes < b.minutes;
             });
             res.json(arr);
         });
@@ -144,7 +144,6 @@ exports.get_trend = function(req, res) {
         for (var key in timeusage) {
             arr.push(Math.round(timeusage[key]));
         }
-        console.log(arr);
         res.json(arr);
     }
 };
