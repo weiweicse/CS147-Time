@@ -99,6 +99,9 @@ exports.get_usage = function(req, res) {
             for (var n in names) {
                 arr.push(names[n]);
             }
+            arr.sort(function(a, b) {
+                return a.minutes) > b.minutes;
+            });
             res.json(arr);
         });
 };
