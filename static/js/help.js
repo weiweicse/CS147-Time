@@ -8,7 +8,7 @@
     var top = (viewport_height - $panel.outerHeight()) / 2;
     $panel.hide().css('top', top);
 
-    $('#help a').on('click', function(e) {
+    $('#help').on('click', function(e) {
         e.preventDefault();
         $panel.fadeIn();
     });
