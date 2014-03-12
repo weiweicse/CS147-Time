@@ -35,9 +35,17 @@ html
             h3 Your Timeline
 
             #items
-                include includes/history-items
-
-            button#load-more.btn.btn-info.btn-block(type='button') Load More
+                if items.length
+                    include includes/history-items
+                    button#load-more.btn.btn-info.btn-block(type='button') Load More
+                else
+                    .well
+                        p.text-muted
+                            | Your haven't recorded anything yet. :(
+                        p.text-muted
+                            | Start your VisualTime journey by tapping the 
+                            +icon('plus')
+                            | &nbsp;icon on the top left corner!
 
         include includes/scripts
         include includes/msg-script

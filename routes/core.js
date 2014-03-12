@@ -53,19 +53,39 @@ exports.home = function(req, res) {
     low.setMinutes(0);
     low.setSeconds(0);
     models.Record
-        .find({
-            'user': req.session.username,
-            'from': {$lt: high, $gte: low}
-        })
-        .exec(function(err, records) {
-            var lists = populateRecords(records, low, high);
-            res.render('home', {
-                user: {
-                    name: req.session.username
-                },
-                items: lists,
-                from: req.query.from
-            });
+        .count({
+            'user': req.session.username
+        }, function(err, count) {
+            if (err) {
+                console.log(err);
+                res.send(500);
+                return;
+            }
+
+            if (count === 0) {
+                res.render('home', {
+                    user: {
+                        name: req.session.username
+                    },
+                    items: []
+                });
+            } else {
+                models.Record
+                .find({
+                    'user': req.session.username,
+                    'from': {$lt: high, $gte: low}
+                })
+                .exec(function(err, records) {
+                    var lists = populateRecords(records, low, high);
+                    res.render('home', {
+                        user: {
+                            name: req.session.username
+                        },
+                        items: lists,
+                        from: req.query.from
+                    });
+                });
+            }
         });
 };
 
@@ -355,24 +375,42 @@ exports.trend = function(req, res) {
 exports.history_prev = function(req, res) {
     var last_date = req.query.date;
     var high = new Date(last_date);
-    var low = new Date(high);
-    low.setDate(high.getDate() - 5);
-    low.setHours(0);
-    low.setMinutes(0);
-    low.setSeconds(0);
     models.Record
-        .find({
+        .count({
             'user': req.session.username,
-            'from': {$lt: high, $gte: low}
-        })
-        .exec(function(err, records) {
-            var lists = populateRecords(records, low, high);
-            lists.sort(function(a, b) {
-                return new Date(a.date) < new Date(b.date);
-            });
-            res.render('includes/history-items', {
-                items: lists
-            });
+            'from': {$lt: high}
+        }, function(err, count) {
+            if (err) {
+                console.log(err);
+                res.send(500);
+                return;
+            }
+
+            if (count === 0) {
+                res.render('includes/history-items', {
+                    items: []
+                });
+            } else {
+                var low = new Date(high);
+                low.setDate(high.getDate() - 5);
+                low.setHours(0);
+                low.setMinutes(0);
+                low.setSeconds(0);
+                models.Record
+                .find({
+                    'user': req.session.username,
+                    'from': {$lt: high, $gte: low}
+                })
+                .exec(function(err, records) {
+                    var lists = populateRecords(records, low, high);
+                    lists.sort(function(a, b) {
+                        return new Date(a.date) < new Date(b.date);
+                    });
+                    res.render('includes/history-items', {
+                        items: lists
+                    });
+                });
+            }
         });
 };
 
