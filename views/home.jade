@@ -34,11 +34,12 @@ html
         .container.timeline
             h3 Your Timeline
 
-            #items
-                if items.length
+            if items.length
+                #items
                     include includes/history-items
-                    button#load-more.btn.btn-info.btn-block(type='button') Load More
-                else
+                button#load-more.btn.btn-info.btn-block(type='button') Load More
+            else
+                #items
                     .well
                         p.text-muted
                             | Your haven't recorded anything yet. :(
