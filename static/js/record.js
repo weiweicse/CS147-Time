@@ -36,7 +36,9 @@ $(function() {
             ':' + pad(date.getMinutes());
     }
 
-    // auto-fill start and end date
+    // auto-fill start and end time
+    // the end time is no later than now
+    // the start time is set to an hour from now
     var prefilled_date = $('body').data('date'), date;
     if (prefilled_date)
       date = new Date(prefilled_date + 'T10:00:00-08:00'); // use PST time
@@ -44,15 +46,16 @@ $(function() {
       date = new Date();
 
     if (is_mobile) {
-        $start.val(dateToInputValue(date));
-        date.setHours(date.getHours() + 2);
         $end.val(dateToInputValue(date));
+        date.setHours(date.getHours() - 1);
+        $start.val(dateToInputValue(date));
     } else {
         $start.datetimepicker();
         $end.datetimepicker();
 
-        $start.datetimepicker('setDate', date);
         $end.datetimepicker('setDate', date);
+        date.setHours(date.getHours() - 1);
+        $start.datetimepicker('setDate', date);
     }
 
     var submitting = false;
