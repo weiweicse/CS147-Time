@@ -123,9 +123,11 @@ function laterStart(r1, r2) {
 function populateRecords(records, low, high) {
     var num_records = records.length;
     var dates = {};
+    var durations = {};
 
     for (var d = new Date(low); d < high; d.setDate(d.getDate() + 1)) {
         dates[d] = [];
+        durations[d] = 0;
     }
 
     for (var i = 0; i < num_records; i++) {
@@ -142,6 +144,8 @@ function populateRecords(records, low, high) {
             start: normalizeTime(record.from),
             end: normalizeTime(record.to)
         });
+        
+        durations[from] += (record.to - record.from) / 3600000;
     }
 
     var lists = [];
@@ -152,6 +156,7 @@ function populateRecords(records, low, high) {
 
         lists.push({
             date: normalizeDate(new Date(date)),
+            duration: Math.round(durations[date]),
             events: dates[date]
         });
     }
