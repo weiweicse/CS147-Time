@@ -39,7 +39,7 @@ html
                     include includes/history-items
                 button#load-more.btn.btn-info.btn-block(type='button') Load More
             else
-                #items
+                #items(data-no-more="true")
                     .well
                         p.text-muted
                             | Your haven't recorded anything yet. :(

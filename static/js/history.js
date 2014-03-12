@@ -3,7 +3,7 @@ $(function() {
     var is_loading = false;
     var $items = $('#items');
     var $load_buttom = $('#load-more');
-    var auto_load_times = 2;
+    var auto_load_times = $items.data('no-more') ? 0 : 2;
 
     function loadPreviousItems() {
         // throttling
