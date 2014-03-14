@@ -21,6 +21,11 @@ html
                     = date
                     | . Record an activity by tapping on the button below.
 
+                a.btn.btn-lg.btn-default.btn-block(href='/record?date=#{date}')
+                    include mixins/icon
+                    +icon('plus')
+                    | &nbsp;Record Activity
+
         include includes/scripts
         include includes/msg-script
         include includes/ga

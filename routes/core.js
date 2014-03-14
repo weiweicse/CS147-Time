@@ -421,7 +421,7 @@ exports.history_prev = function(req, res) {
 
 exports.history_day = function(req, res) {
     var parts = [req.params.year, req.params.month, req.params.day];
-    var last_date = parts.join('-');
+    var last_date = parts.map(pad).join('-');
     var high = new Date(last_date + ' 23:59:59');
     var low = new Date(last_date + ' 00:00:00');
     var back_url = req.get('Referer');
