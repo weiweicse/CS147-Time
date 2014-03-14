@@ -187,11 +187,11 @@ exports.get_calendar = function(req, res) {
             var num_records = records.length;
             var date;
             for (i = 0; i < num_records; i++) {
-                date = records[i].from;
+                date = new Date(records[i].from);
                 date.setHours(0);
                 date.setMinutes(0);
                 date.setSeconds(0);
-                intensity[date] += 1;
+                intensity[date] += (records[i].to - records[i].from) / 3600000;
             }
             var ret = [];
             for (i = 0; i < daysArray.length; i++) {
