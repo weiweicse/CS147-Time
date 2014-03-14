@@ -83,6 +83,7 @@ $(function() {
                                    duration === 7  ? 'this week'  : 'today');
                 $nothing.find('.holder').text(duration_txt);
                 $nothing.fadeIn();
+                updateGraph(data);
             } else {
                 updateGraph(data);
             }
